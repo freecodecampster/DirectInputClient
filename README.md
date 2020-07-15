@@ -1,11 +1,80 @@
 # DirectInputClient
- Send keystrokes from an iPad Playground to Windows DirectX Games.
+ Press buttons on screen that send keystrokes from an iPad Playground to Windows DirectX Games.
  
- ![Playground Screenshot](https://github.com/freecodecampster/DirectInputServer/blob/master/images/DI.jpeg)
+ Requires DirectInputServer https://github.com/freecodecampster/DirectInputServer
+ 
+ The code examples below may be out of sync with the latest source code. Check the source code for up to date examples.
+ 
+ ![How it works](https://github.com/freecodecampster/DirectInputServer/blob/master/images/DI.jpeg)
+ ![Playground Screenshot](https://github.com/freecodecampster/DirectInputServer/blob/master/images/iPadOS.jpg)
+ 
+ The game needs to be the foremost window to receive the commands.
+
+## Requirements
+
+iPad running iOS 13+ Playgrounds and Windows 10. The Python server runs on Windows 10. A pre-built executable is available. Make sure the latest versions of both DirectInputClient and DirectInputServer are used as how commands are processed is likely to have changed.
+
+This repository is built using Visual Studio 2019 Community Edition. If you're comfortable with Python in another environment the only file required is DirectInputServer.py.
+
+## Usage
+
+Copy the contents of DirectInputClient.swift into a Swift Playground on iPadOS
+
+Specify the IP Address of the Server - run ipconfig at the command prompt on Windows to find the ipv4 address
+
+// MARK: - Server Address
+
+/// Address of Python Server that simulates key presses
+let serverIPAddress = "192.168.0.16"
+
+Next tell the playground what buttons need to be displayed and their properties that is name, key to press, image to display and so on. A Swift array is used for each vertical column or VStack of buttons.
+
+If I wanted two buttons in the first column:
+
+Swift Code:
+
+```
+let firstButtonsArray: [Buttons] = [
+    Buttons(
+        imageSystemName: "house.fill", 
+        name: "Domestic", 
+        background: Color.red, 
+        messageText: "\(Scancode.F1.rawValue)", 
+        toggleButton: false),
+    Buttons(
+        imageSystemName: "dollarsign.square.fill", 
+        name: "Financial", 
+        background: Color.init(UIColor.systemYellow), 
+        messageText: "\(Scancode.F2.rawValue)", 
+        toggleButton: false),
+]
+```
+Each button can display an image as defined by https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
+
+The messageText is a String that is sent to DirectInputServer which then processes the String and carries out the key commands. Look at DirectInputServer.swift for button examples.
+
+```
+// MARK: - Data Sources
+// Sent string commands should be single space delimited
+// "command1 command2 command3"
+// A button which sends only one key command can have toggle behaviour useful for the SHIFT key for example
+// "<TOGGLEON>command1" presses the key
+// "<TOGGLEOFF>command1" releases the key
+// "<STOP>" gracefully terminates the connection
+```
+
+## Test Environment
+iPad Pro 9.7 on iOS 14 beta running Swift Playgrounds and Windows 10 v2004.
+Local Wireless Network.
+
+## Results 
+Very quick from button press to executing the key press in game. Playgrounds have a very small file size. Robust, reliable communication with Network API.
  
 ## An Example
 
-Sending P for pause from iPad Playground. Enum Scancode enumerates every possible command. rawValue returns a string.
+Sending P for pause from iPad Playground. 
+DirectInputClient
+An enum called Scancode enumerates every possible command. rawValue returns a string that DirectInputServer acts upon.
 
 Swift code:
 
@@ -101,10 +170,6 @@ public class TCPClient {
 }
 ```
 
-The singleton pattern is used extensively in this Swift playground.
-
-To keep the playground from slowing down place as much Swift code in the sources folder as this allows the compiler to precompile these files as it knows they won't be edited during execution.
-
 The server is implemented by a single python file.
 
 ```python
@@ -134,20 +199,6 @@ if command1 != "error":
 else:
     print("Wrong key")
 ```
-The game needs to be the foremost window to receive the commands.
 
-## Requirements
-
-iPad running iOS 13 Playgrounds and
-Windows Desktop.
-
-
-## Test Environment
-iPad Pro 9.7 running iOS 13 Playgrounds
-and Windows 10 v1909.
-Local Wireless Network.
-
-## Results 
-Very quick from button press to executing the key press in game. Playgrounds have a very small file size. Robust, reliable communication with Network API.
 
 https://guides.github.com/features/mastering-markdown/
