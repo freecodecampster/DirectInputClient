@@ -18,7 +18,7 @@ This repository is built using Visual Studio 2019 Community Edition. If you're c
 
 ## Usage
 
-Copy the contents of DirectInputClient.swift into a Swift Playground on iPadOS
+Copy the contents of DirectInputClient.swift into a Swift Playground Page on iPadOS. Also copy the contents of Scancodes.swift into a file of the same name located in the sources folder.
 
 Specify the IP Address of the Server - run ipconfig at the command prompt on Windows to find the ipv4 address
 
