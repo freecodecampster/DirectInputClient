@@ -62,6 +62,7 @@ The messageText is a String that is sent to DirectInputServer which then process
 // "<TOGGLEOFF>command1" releases the key
 // "<STOP>" gracefully terminates the connection
 ```
+In Swift Playgrounds run the playground, tap the buttons and have fun! When it is time to stop press the trash can icon in the top right to close the connection - otherwise your Python Server will just crash. No harm is done it just means you'll have to start the Python Server again if you wish to continue.
 
 ## Getting the Playground live view to go beyond the safe area
 In Finder go to the playground file and right-click show package contents.
