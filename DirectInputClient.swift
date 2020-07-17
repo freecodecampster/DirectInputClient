@@ -159,9 +159,8 @@ struct ButtonCode: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.white, lineWidth: 2.0)
                     .background(backgroundColor
-                        .cornerRadius(cornerRadius))
+                        .cornerRadius(cornerRadius).opacity(toggleButton ? keyToggledOn ? 1.0 : 0.5 : 1.0))
             )
-            .opacity(toggleButton ? keyToggledOn ? 1.0 : 0.5 : 1.0)
             .shadow(radius: 2)
         })
     }
@@ -335,6 +334,13 @@ let managementButtonsArray: [Buttons] = [
         background: Color.init(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)), 
         messageText: "\(Scancode.Period.rawValue)", 
         toggleButton: false
+    ),
+    Buttons(
+        imageSystemName: "control", 
+        name: "Cycle", 
+        background: Color.init(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)), 
+        messageText: "\(Scancode.LeftControl.rawValue)", 
+        toggleButton: true
     ),
     Buttons(
         imageSystemName: "mappin", 
@@ -777,6 +783,11 @@ public struct ButtonView: View {
         }
     }
 }
+
+// Make a UIHostingController
+//  let viewController = UIHostingController(rootView: Preview())
+// Assign it to the playground's liveView
+//  PlaygroundPage.current.liveView = viewController
 
 PlaygroundPage.current.setLiveView(Preview().edgesIgnoringSafeArea(.bottom).border(Color.gray))
 // iOS Playground only not valid in Xcode Playgrounds
