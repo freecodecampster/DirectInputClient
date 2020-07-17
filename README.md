@@ -18,7 +18,7 @@ This repository is built using Visual Studio 2019 Community Edition. If you're c
 
 ## Usage
 
-Copy the contents of DirectInputClient.swift into a Swift Playground Page on iPadOS. Also copy the contents of Scancodes.swift into a file of the same name located in the sources folder.
+Copy the contents of DirectInputClient.swift into a Swift Playground Page on iPadOS. Choose the blank template not the Xcode template as you need to edit the manifest.plist to get the playground to extend beyond the screen's safe area - this plist file doesn't exist in Xcode templates. Also copy the contents of Scancodes.swift into a file of the same name located in the sources folder.
 
 Specify the IP Address of the Server - run ipconfig at the command prompt on Windows to find the ipv4 address
 
@@ -62,6 +62,20 @@ The messageText is a String that is sent to DirectInputServer which then process
 // "<TOGGLEOFF>command1" releases the key
 // "<STOP>" gracefully terminates the connection
 ```
+In Swift Playgrounds run the playground, tap the buttons and have fun! When it is time to stop press the trash can icon in the top right to close the connection - otherwise your Python Server will just crash. No harm is done it just means you'll have to start the Python Server again if you wish to continue.
+
+## Getting the Playground live view to go beyond the safe area
+In Finder go to the playground file and right-click show package contents.
+
+Navigate to the playground page where you want the live view to run. It is buried a few levels deep. For a playground named "My Playground" here is the path.
+
+Blank.playgroundbook/Contents/Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/Manifest.plist
+
+With Xcode you can edit the Manifest.plist. Add a key to the root named "LiveViewEdgeToEdge" of type Boolean and set its value to 1(YES).
+
+As an alternative you can download the playground I have uploaded which has the Manifest.plist already edited.
+
+![Liveview Screenshot](https://github.com/freecodecampster/DirectInputClient/blob/master/liveview.jpeg)
 
 ## Test Environment
 iPad Pro 9.7 on iOS 14 beta running Swift Playgrounds and Windows 10 v2004.
