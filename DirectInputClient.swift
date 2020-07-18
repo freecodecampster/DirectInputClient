@@ -1,5 +1,5 @@
 // DirectInputClient v2
-// 14/07/2020
+// 18/07/2020
 // Freecodecampster
 // https://github.com/freecodecampster/DirectInputClient
 
@@ -144,10 +144,10 @@ struct ButtonCode: View {
             VStack {
                 ZStack {
                     Image(systemName: imageSystemName)
-                        .font(self.imageFontSize)
+                        .font(self.imageFontSize).offset(x: 0, y: maxHeight/5)
                     ZStack {
                         Text(self.buttonName)
-                            .font(self.font).baselineOffset(self.maxHeight)
+                            .font(self.font).baselineOffset(self.maxHeight/2)
                             .shadow(radius: 1, x: 1, y: 1)
                     }
                 }
