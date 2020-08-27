@@ -37,6 +37,8 @@ The root SwiftUI view is defined here. It calls another view which is inside a u
 
 # Code placed in a user module
 
+These files do most of the work for you. Define some buttons in an array of type Buttons. Call CreateButtonsFromArray in a HStack or VStack for example and pass in this array. The buttons will be created for you. When you press them they will send the commands defined in the array.
+
 ## Connection To Server.swift
 
 This defines the serverIPAddress - make sure it matches the IP address of the computer hosting the Python server DirectInputServer. The class TCPClient creates a connection to the server so the Playground can communicate to the server. Every time a message is sent it is sent with sharedTCPClient of which only one instance is created.
