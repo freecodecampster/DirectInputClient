@@ -7,9 +7,9 @@
  
  How it works
  ![How it works](https://github.com/freecodecampster/DirectInputServer/blob/master/images/DI.jpeg)
-
- Playground Screenshot v2
- ![Playground Screenshot](https://github.com/freecodecampster/DirectInputServer/blob/master/images/iPadOS.jpg)
+ 
+ Playground Screenshot v3
+![Playground Screenshot](https://github.com/freecodecampster/DirectInputClient/blob/master/Playgroundv3.jpeg)
 
  
  The game needs to be the foremost window to receive the commands.
