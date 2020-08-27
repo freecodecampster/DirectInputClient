@@ -1,12 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Diff</key>
-	<array>
-		<dict>
-			<key>ModifiedContent</key>
-			<string>// Use Scancode.Escape.rawValue to return a string
+// Code inside modules can be shared between pages and other source files.
+// Use Scancode.Escape.rawValue to return a string
 public enum Scancode: String {
     case Escape
     case Keyboard1
@@ -118,16 +111,3 @@ public enum Scancode: String {
     case MouseWheelUp
     case MouseWheelDown
 }
-</string>
-			<key>ModifiedRange</key>
-			<string>{75, 1861}</string>
-			<key>OriginalContent</key>
-			<string></string>
-			<key>OriginalRange</key>
-			<string>{75, 0}</string>
-		</dict>
-	</array>
-	<key>File</key>
-	<string>UserModules/UserModule.playgroundmodule/Sources/SharedCode.swift</string>
-</dict>
-</plist>
