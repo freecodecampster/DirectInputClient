@@ -1,6 +1,7 @@
 # DirectInputClient
+
  Built using Swift Playgrounds. Available for macOS and iPadOS.
- Buttons in Playground send keystrokes to Windows Applications and Games.
+ Buttons in Playground send keystrokes to Windows Applications and Games. Create separate Playgrounds for each game. 
  
  Requires DirectInputServer https://github.com/freecodecampster/DirectInputServer
  
