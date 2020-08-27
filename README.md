@@ -8,6 +8,8 @@
  How it works
  ![How it works](https://github.com/freecodecampster/DirectInputServer/blob/master/images/DI.jpeg)
  
+ Check out the wiki for more details https://github.com/freecodecampster/DirectInputClient/wiki
+ 
  Playground Screenshot v3
 ![Playground Screenshot](https://github.com/freecodecampster/DirectInputClient/blob/master/Playgroundv3.jpeg)
 
