@@ -11,6 +11,8 @@
  Playground Screenshot v3
 ![Playground Screenshot](https://github.com/freecodecampster/DirectInputClient/blob/master/Playgroundv3.jpeg)
 
+Example provided works with Civilization IV.
+
  The application/game needs to be the foremost window to receive the commands.
 
 ## Requirements
