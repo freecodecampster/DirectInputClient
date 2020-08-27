@@ -117,6 +117,7 @@ let firstButtonsArray: [Buttons] = [
         messageText: "\(Scancode.F2.rawValue)", 
         toggleButton: false),
 ]
+```
 
 Each button can display an image as defined by https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/
 
