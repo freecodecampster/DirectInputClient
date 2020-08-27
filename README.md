@@ -5,8 +5,12 @@
  
  The code examples below may be out of sync with the latest source code. Check the source code for up to date examples.
  
+ How it works
  ![How it works](https://github.com/freecodecampster/DirectInputServer/blob/master/images/DI.jpeg)
+
+ Playground Screenshot v2
  ![Playground Screenshot](https://github.com/freecodecampster/DirectInputServer/blob/master/images/iPadOS.jpg)
+
  
  The game needs to be the foremost window to receive the commands.
 
