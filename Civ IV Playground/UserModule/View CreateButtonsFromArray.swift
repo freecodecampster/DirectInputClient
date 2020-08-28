@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CreateButtonsFromArray: View {
+    // You need pass footerText in as each button has to update footerText when it is pressed
     @Binding var footerText: String
     var buttons: [CustomButton]
     // You can also specify the following variables when calling the initialiser
