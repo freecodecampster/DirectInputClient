@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CreateButtonsFromArray: View {
     @Binding var footerText: String
-    var buttons: [Buttons]
+    var buttons: [CustomButton]
     // You can also specify the following variables when calling the initialiser
     var imageFontSize: Font = .largeTitle
     var foregroundColor: Color = .white
