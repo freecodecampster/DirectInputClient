@@ -43,7 +43,7 @@ These files do most of the work for you. Define some buttons in an array of type
 
 This defines the serverIPAddress - make sure it matches the IP address of the computer hosting the Python server DirectInputServer. The class TCPClient creates a connection to the server so the Playground can communicate to the server. Every time a message is sent it is sent with sharedTCPClient of which only one instance is created.
 
-## Data Model Buttons.swift
+## Data Model CustomButton.swift
 
 It's easier to define data in one place and use separate code to define presentation. Arrays of buttons are used and their properties are defined here.
 
