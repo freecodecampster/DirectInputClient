@@ -89,85 +89,64 @@ public class TCPClient {
 // Initialises TCPClient
 let tcpClient = TCPClient.returnSingleton(serverIPAddress: serverIPAddress)
 
-// Create a Singleton to hold the shared data
-class SharedData: ObservableObject {
-    static let shared = SharedData()
-    private init() {}
-    @Published var messageSent = ""
-}
-
 // Tab Views cause synchronisation errors with observed objects
 struct MakePlaygroundView: View {
-    @ObservedObject var shared: SharedData = .shared
+    @State private var showingPopover1 = false
+    @State private var showingPopover2 = false
+    
     var body: some View {
+        // Seems to be a bug where you can only have 9 buttons in one VStack/Group/Popover etc, create another and add buttons to that
         ScrollView([.horizontal, .vertical]) {
-            VStack {
-                HStack {
-                    VStack {
-                        MakeButton(text: "Switch App", messageToSend: [Scancode.LeftAlt, Scancode.Tab], buttonColor: .red)
-                        MakeButton(text: "I'm a button with a really long name", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "Shift Lock", messageToSend: [Scancode.LeftShift], buttonColor: .red, buttonToggle: true)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                    }
-                    VStack {
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                    }
-                    VStack {
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                    }
-                    VStack {
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                    }
-                    VStack {
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                    }
-                    VStack {
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                    }
-                    VStack {
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                        MakeButton(text: "I'm a button", messageToSend: [Scancode.A, Scancode.B], buttonColor: .red)
-                    }
+            HStack {
+                VStack {
+                    MakeButton(title: "Left Shift Toggle", messageToSend: [Scancode.LeftShift], buttonColor: .gray, buttonToggle: true)
+                    MakePopover(
+                        title: "I'm a popover", 
+                        buttons: [
+                            MakeButton(title: "Switch App", messageToSend: [Scancode.LeftAlt, Scancode.Tab], buttonColor: .green), 
+                            MakeButton(title: "I am the character A", messageToSend: [Scancode.A]),
+                            MakeButton(title: "I'm a button that presses B", messageToSend: [Scancode.B], buttonColor: .blue)
+                        ],
+                        foregroundColor: .red
+                    )
                 }
-                Text("\(serverIPAddress) \(shared.messageSent)")
+                VStack {
+                    MakeButton(title: "I'm a button that presses C", messageToSend: [Scancode.C], buttonColor: .blue)
+                    MakePopover(
+                        title: "I'm another popover", 
+                        buttons: [
+                            MakeButton(title: "I press D", messageToSend: [Scancode.D], buttonColor: .green)
+                        ],
+                        foregroundColor: .red
+                    )
+                }
             }
         }
     }
 }
 
-struct MakeButton: View {
-    var text: String
+struct MakePopover: View {
+    @State private var showingPopover = false
+    var title: String
+    var buttons: [MakeButton]
+    var font: Font? = .headline
+    var foregroundColor: Color? = .blue
+    var body: some View {
+        Button(title) {
+            self.showingPopover = true
+        }.font(font).foregroundColor(foregroundColor).popover(isPresented: self.$showingPopover) {
+            ScrollView {
+                ForEach (self.buttons) { button in
+                    button
+                }
+            }
+        }.padding()
+    }
+}
+
+struct MakeButton: View, Identifiable {
+    var id: UUID? = UUID()
+    var title: String
     var messageToSend: [Scancode]?
     var buttonColor: Color?
     var buttonToggle: Bool?
@@ -179,42 +158,30 @@ struct MakeButton: View {
         }
         return serverString
     }
-    @ObservedObject var shared: SharedData = .shared
     
     var body: some View {
-        Button(text, action: {
-            var stringSentToServer: String = ""
-            if self.buttonToggle ?? false {
-                if self.keyToggledOn {
-                    stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
-                    
+        VStack {
+            Button(title, action: {
+                var stringSentToServer: String = ""
+                if self.buttonToggle ?? false {
+                    if self.keyToggledOn {
+                        stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+                    } else {
+                        stringSentToServer = "<TOGGLEON>" + self.buttonAction
+                    }
+                    self.keyToggledOn.toggle()
                 } else {
-                    stringSentToServer = "<TOGGLEON>" + self.buttonAction
+                    stringSentToServer = self.buttonAction
                 }
-                self.keyToggledOn.toggle()
-            } else {
-                stringSentToServer = self.buttonAction
-            }
-            // Display messages sent in a Text View in MakePlaygroundView
-            self.shared.messageSent = stringSentToServer
-            // Send message to server
-            tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
-        }).accentColor(buttonColor).font(.headline).padding().opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
-    }
-}
-
-struct ViewCreator<Content:View> {
-    var content: Content
-    
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
+                // Send message to server
+                tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
+            }).accentColor(buttonColor).font(.headline)
+            // Display keys pressed
+            Text(self.buttonAction).font(.caption).foregroundColor(.gray)
+        }.padding().opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
     }
     
-    var body: some View {
-        self.content
-    }
 }
-
 
 // These keys can be used with DirectInputServer
 // Use Scancode.Escape.rawValue to return a string
@@ -330,5 +297,5 @@ enum Scancode: String {
     case MouseWheelDown
 }
 
-PlaygroundPage.current.setLiveView(MakePlaygroundView().edgesIgnoringSafeArea(.all).border(Color.gray))
+PlaygroundPage.current.setLiveView(MakePlaygroundView().border(Color.gray))
 PlaygroundPage.current.wantsFullScreenLiveView = true

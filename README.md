@@ -9,8 +9,8 @@
  ![How it works](https://github.com/freecodecampster/DirectInputServer/blob/master/images/DI.jpeg)
  
  
-http://www.youtube.com/watch?v=c0R5ytOUbYQ
-[![Screencast of DirectInputClient and DirectInputServer working together](https://img.youtube.com/vi/c0R5ytOUbYQ/0.jpg)](http://www.youtube.com/watch?v=c0R5ytOUbYQ)
+http://www.youtube.com/watch?v=7ppZ2OEdLFg
+[![Screencast of DirectInputClient and DirectInputServer working together](https://img.youtube.com/vi/7ppZ2OEdLFg/0.jpg)](http://www.youtube.com/watch?v=7ppZ2OEdLFg)
 
  Install Visual Studio Code and a Python 3 Environment.
  https://code.visualstudio.com
