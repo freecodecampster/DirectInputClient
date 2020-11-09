@@ -91,8 +91,6 @@ let tcpClient = TCPClient.returnSingleton(serverIPAddress: serverIPAddress)
 
 // Tab Views cause synchronisation errors with observed objects
 struct MakePlaygroundView: View {
-    @State private var showingPopover1 = false
-    @State private var showingPopover2 = false
     
     var body: some View {
         // Seems to be a bug where you can only have 9 buttons in one VStack/Group/Popover etc, create another and add buttons to that
