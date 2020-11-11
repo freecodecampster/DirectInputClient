@@ -104,7 +104,7 @@ struct MakePlaygroundView: View {
                             MakeButton(title: "Switch Between Open Apps", messageToSend: [Scancode.Alt, Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
                             // Provide a nil argument and the button use default value for that parameter
                             MakeButton(title: "1", messageToSend: [Scancode.Key1], buttonColor: nil, buttonToggle: nil),
-                            MakeButton(title: "A", messageToSend: [Scancode.KeyA], buttonColor: nil, buttonToggle: nil),
+                            MakeButton(title: "A", messageToSend: [Scancode.A], buttonColor: nil, buttonToggle: nil),
                             MakeButton(title: "Volume Up", messageToSend: [Scancode.VolumeUp], buttonColor: nil, buttonToggle: nil)
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
@@ -280,32 +280,32 @@ enum Scancode: String {
     case Key7 = "VK_7" // 7 key
     case Key8 = "VK_8" // 8 key
     case Key9 = "VK_9" // 9 key
-    case KeyA = "VK_A" // A key
-    case KeyB = "VK_B" // B key
-    case KeyC = "VK_C" // C key
-    case KeyD = "VK_D" // D key
-    case KeyE = "VK_E" // E key
-    case KeyF = "VK_F" // F key
-    case KeyG = "VK_G" // G key
-    case KeyH = "VK_H" // H key
-    case KeyI = "VK_I" // I key
-    case KeyJ = "VK_J" // J key
-    case KeyK = "VK_K" // K key
-    case KeyL = "VK_L" // L key
-    case KeyM = "VK_M" // M key
-    case KeyN = "VK_N" // N key
-    case KeyO = "VK_O" // O key
-    case KeyP = "VK_P" // P key
-    case KeyQ = "VK_Q" // Q key
-    case KeyR = "VK_R" // R key
-    case KeyS = "VK_S" // S key
-    case KeyT = "VK_T" // T key
-    case KeyU = "VK_U" // U key
-    case KeyV = "VK_V" // V key
-    case KeyW = "VK_W" // W key
-    case KeyX = "VK_X" // X key
-    case KeyY = "VK_Y" // Y key
-    case KeyZ = "VK_Z" // Z key
+    case A = "VK_A" // A key
+    case B = "VK_B" // B key
+    case C = "VK_C" // C key
+    case D = "VK_D" // D key
+    case E = "VK_E" // E key
+    case F = "VK_F" // F key
+    case G = "VK_G" // G key
+    case H = "VK_H" // H key
+    case I = "VK_I" // I key
+    case J = "VK_J" // J key
+    case K = "VK_K" // K key
+    case L = "VK_L" // L key
+    case M = "VK_M" // M key
+    case N = "VK_N" // N key
+    case O = "VK_O" // O key
+    case P = "VK_P" // P key
+    case Q = "VK_Q" // Q key
+    case R = "VK_R" // R key
+    case S = "VK_S" // S key
+    case T = "VK_T" // T key
+    case U = "VK_U" // U key
+    case V = "VK_V" // V key
+    case W = "VK_W" // W key
+    case X = "VK_X" // X key
+    case Y = "VK_Y" // Y key
+    case Z = "VK_Z" // Z key
     case LeftWindows = "VK_LWIN" // Left Windows key (Natural keyboard)
     case RightWindows = "VK_RWIN" // Right Windows key (Natural keyboard)
     case Apps = "VK_APPS" // Applications key (Natural keyboard)
