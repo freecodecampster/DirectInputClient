@@ -5,6 +5,8 @@
  
  Requires DirectInputServer https://github.com/freecodecampster/DirectInputServer
  
+ Copy the code from https://github.com/freecodecampster/DirectInputClient/blob/master/PlaygroundCode.swift into a PlaygroundPage to get started.
+ 
  How it works
  ![How it works](https://github.com/freecodecampster/DirectInputServer/blob/master/images/DI.jpeg)
  
