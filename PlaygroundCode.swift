@@ -97,15 +97,15 @@ struct MakePlaygroundView: View {
         ScrollView([.horizontal, .vertical]) {
             HStack {
                 VStack {
-                    MakeButton(title: "Left Shift", messageToSend: [Scancode.VK_LSHIFT], buttonColor: Color(#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)), buttonToggle: true)
+                    MakeButton(title: "Left Shift", messageToSend: [Scancode.LeftShift], buttonColor: Color(#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)), buttonToggle: true)
                     MakePopover(
                         title: "Keys", 
                         buttons: [
-                            MakeButton(title: "Switch Between Open Apps", messageToSend: [Scancode.VK_MENU, Scancode.VK_TAB], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Switch Between Open Apps", messageToSend: [Scancode.Alt, Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
                             // Provide a nil argument and the button use default value for that parameter
-                            MakeButton(title: "1", messageToSend: [Scancode.VK_1], buttonColor: nil, buttonToggle: nil),
-                            MakeButton(title: "A", messageToSend: [Scancode.VK_A], buttonColor: nil, buttonToggle: nil),
-                            MakeButton(title: "Volume Up", messageToSend: [Scancode.VK_VOLUME_UP], buttonColor: nil, buttonToggle: nil)
+                            MakeButton(title: "1", messageToSend: [Scancode.Key1], buttonColor: nil, buttonToggle: nil),
+                            MakeButton(title: "A", messageToSend: [Scancode.KeyA], buttonColor: nil, buttonToggle: nil),
+                            MakeButton(title: "Volume Up", messageToSend: [Scancode.VolumeUp], buttonColor: nil, buttonToggle: nil)
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                     )
@@ -115,8 +115,8 @@ struct MakePlaygroundView: View {
                             MakePopover(
                                 title: "🖥 Windows Key", 
                                 buttons: [
-                                    MakeButton(title: "Show Start Menu", messageToSend: [Scancode.VK_LWIN], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)),buttonToggle: false),
-                                    MakeButton(title: "Show Task Switcher", messageToSend: [Scancode.VK_LWIN, Scancode.VK_TAB], buttonColor: nil, buttonToggle: nil)
+                                    MakeButton(title: "Show Start Menu", messageToSend: [Scancode.LeftWindows], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)),buttonToggle: false),
+                                    MakeButton(title: "Show Task Switcher", messageToSend: [Scancode.LeftWindows, Scancode.Tab], buttonColor: nil, buttonToggle: nil)
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                             )
@@ -188,6 +188,13 @@ struct MakeButton: View, Identifiable {
         }
         return serverString
     }
+    var scancodeString: String {
+        var scancodeString: String = ""
+        for scancode in messageToSend! {
+            scancodeString += String(describing: scancode) + " "
+        }
+        return scancodeString
+    }
     
     var body: some View {
         VStack {
@@ -207,190 +214,192 @@ struct MakeButton: View, Identifiable {
                 tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
             }).accentColor(buttonColor).font(.headline)
             // Display keys pressed
-            Text(self.buttonAction).font(.caption).foregroundColor(.gray)
+            Text(self.scancodeString).font(.caption).foregroundColor(.gray)
         }.padding().opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
     }
     
 }
 
 // These keys can be used with DirectInputServer
+// VK_OEM_PLUS is the EQUALS key
+// https://docs.microsoft.com/en-us/uwp/api/Windows.System.VirtualKey?view=winrt-19041
 // Use Scancode.Escape.rawValue to return a string
 enum Scancode: String {
-    case VK_LBUTTON // Left mouse button
-    case VK_RBUTTON // Right mouse button
-    case VK_CANCEL // Control-break processing
-    case VK_MBUTTON // Middle mouse button (three-button mouse)
-    case VK_XBUTTON1 // X1 mouse button
-    case VK_XBUTTON2 // X2 mouse button
-    case VK_BACK // BACKSPACE key
-    case VK_TAB // TAB key
-    case VK_CLEAR // CLEAR key
-    case VK_RETURN // ENTER key
-    case VK_SHIFT // SHIFT key
-    case VK_CONTROL // CTRL key
-    case VK_MENU // ALT key
-    case VK_PAUSE // PAUSE key
-    case VK_CAPITAL // CAPS LOCK key
-    case VK_KANA // IME Kana mode
-    case VK_HANGUEL // IME Hanguel mode (maintained for compatibility; use VK_HANGUL)
-    case VK_HANGUL // IME Hangul mode
-    case VK_IME_ON // IME On
-    case VK_JUNJA // IME Junja mode
-    case VK_FINAL // IME final mode
-    case VK_HANJA // IME Hanja mode
-    case VK_KANJI // IME Kanji mode
-    case VK_IME_OFF // IME Off
-    case VK_ESCAPE // ESC key
-    case VK_CONVERT // IME convert
-    case VK_NONCONVERT // IME nonconvert
-    case VK_ACCEPT // IME accept
-    case VK_MODECHANGE // IME mode change request
-    case VK_SPACE // SPACEBAR
-    case VK_PRIOR // PAGE UP key
-    case VK_NEXT // PAGE DOWN key
-    case VK_END // END key
-    case VK_HOME // HOME key
-    case VK_LEFT // LEFT ARROW key
-    case VK_UP // UP ARROW key
-    case VK_RIGHT // RIGHT ARROW key
-    case VK_DOWN // DOWN ARROW key
-    case VK_SELECT // SELECT key
-    case VK_PRINT // PRINT key
-    case VK_EXECUTE // EXECUTE key
-    case VK_SNAPSHOT // PRINT SCREEN key
-    case VK_INSERT // INS key
-    case VK_DELETE // DEL key
-    case VK_HELP // HELP key
-    case VK_0 // 0 key
-    case VK_1 // 1 key
-    case VK_2 // 2 key
-    case VK_3 // 3 key
-    case VK_4 // 4 key
-    case VK_5 // 5 key
-    case VK_6 // 6 key
-    case VK_7 // 7 key
-    case VK_8 // 8 key
-    case VK_9 // 9 key
-    case VK_A // A key
-    case VK_B // B key
-    case VK_C // C key
-    case VK_D // D key
-    case VK_E // E key
-    case VK_F // F key
-    case VK_G // G key
-    case VK_H // H key
-    case VK_I // I key
-    case VK_J // J key
-    case VK_K // K key
-    case VK_L // L key
-    case VK_M // M key
-    case VK_N // N key
-    case VK_O // O key
-    case VK_P // P key
-    case VK_Q // Q key
-    case VK_R // R key
-    case VK_S // S key
-    case VK_T // T key
-    case VK_U // U key
-    case VK_V // V key
-    case VK_W // W key
-    case VK_X // X key
-    case VK_Y // Y key
-    case VK_Z // Z key
-    case VK_LWIN // Left Windows key (Natural keyboard)
-    case VK_RWIN // Right Windows key (Natural keyboard)
-    case VK_APPS // Applications key (Natural keyboard)
-    case VK_SLEEP // Computer Sleep key
-    case VK_NUMPAD0 // Numeric keypad 0 key
-    case VK_NUMPAD1 // Numeric keypad 1 key
-    case VK_NUMPAD2 // Numeric keypad 2 key
-    case VK_NUMPAD3 // Numeric keypad 3 key
-    case VK_NUMPAD4 // Numeric keypad 4 key
-    case VK_NUMPAD5 // Numeric keypad 5 key
-    case VK_NUMPAD6 // Numeric keypad 6 key
-    case VK_NUMPAD7 // Numeric keypad 7 key
-    case VK_NUMPAD8 // Numeric keypad 8 key
-    case VK_NUMPAD9 // Numeric keypad 9 key
-    case VK_MULTIPLY // Multiply key
-    case VK_ADD // Add key
-    case VK_SEPARATOR // Separator key
-    case VK_SUBTRACT // Subtract key
-    case VK_DECIMAL // Decimal key
-    case VK_DIVIDE // Divide key
-    case VK_F1 // F1 key
-    case VK_F2 // F2 key
-    case VK_F3 // F3 key
-    case VK_F4 // F4 key
-    case VK_F5 // F5 key
-    case VK_F6 // F6 key
-    case VK_F7 // F7 key
-    case VK_F8 // F8 key
-    case VK_F9 // F9 key
-    case VK_F10 // F10 key
-    case VK_F11 // F11 key
-    case VK_F12 // F12 key
-    case VK_F13 // F13 key
-    case VK_F14 // F14 key
-    case VK_F15 // F15 key
-    case VK_F16 // F16 key
-    case VK_F17 // F17 key
-    case VK_F18 // F18 key
-    case VK_F19 // F19 key
-    case VK_F20 // F20 key
-    case VK_F21 // F21 key
-    case VK_F22 // F22 key
-    case VK_F23 // F23 key
-    case VK_F24 // F24 key
-    case VK_NUMLOCK // NUM LOCK key
-    case VK_SCROLL // SCROLL LOCK key
-    case VK_LSHIFT // Left SHIFT key
-    case VK_RSHIFT // Right SHIFT key
-    case VK_LCONTROL // Left CONTROL key
-    case VK_RCONTROL // Right CONTROL key
-    case VK_LMENU // Left MENU key
-    case VK_RMENU // Right MENU key
-    case VK_BROWSER_BACK // Browser Back key
-    case VK_BROWSER_FORWARD // Browser Forward key
-    case VK_BROWSER_REFRESH // Browser Refresh key
-    case VK_BROWSER_STOP // Browser Stop key
-    case VK_BROWSER_SEARCH // Browser Search key
-    case VK_BROWSER_FAVORITES // Browser Favorites key
-    case VK_BROWSER_HOME // Browser Start and Home key
-    case VK_VOLUME_MUTE // Volume Mute key
-    case VK_VOLUME_DOWN // Volume Down key
-    case VK_VOLUME_UP // Volume Up key
-    case VK_MEDIA_NEXT_TRACK // Next Track key
-    case VK_MEDIA_PREV_TRACK // Previous Track key
-    case VK_MEDIA_STOP // Stop Media key
-    case VK_MEDIA_PLAY_PAUSE // Play/Pause Media key
-    case VK_LAUNCH_MAIL // Start Mail key
-    case VK_LAUNCH_MEDIA_SELECT // Select Media key
-    case VK_LAUNCH_APP1 // Start Application 1 key
-    case VK_LAUNCH_APP2 // Start Application 2 key
-    case VK_OEM_1 // Used for miscellaneous characters; it can vary by keyboard.For the US standard keyboard, the ';:' key
-    case VK_OEM_PLUS // For any country/region, the '+' key
-    case VK_OEM_COMMA // For any country/region, the ',' key
-    case VK_OEM_MINUS // For any country/region, the '-' key
-    case VK_OEM_PERIOD // For any country/region, the '.' key
-    case VK_OEM_2 // Used for miscellaneous characters; it can vary by keyboard.For the US standard keyboard, the '/?' key
-    case VK_OEM_3 // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '`~' key
-    case VK_OEM_4 // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '[{' key
-    case VK_OEM_5 // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '\|' key
-    case VK_OEM_6 // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the ']}' key
-    case VK_OEM_7 // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the 'single-quote/double-quote' key
-    case VK_OEM_8 // Used for miscellaneous characters; it can vary by keyboard.
-    case VK_OEM_102 // Either the angle bracket key or the backslash key on the RT 102-key keyboard
-    case VK_PROCESSKEY // IME PROCESS key
-    case VK_PACKET // Used to pass Unicode characters as if they were keystrokes. The VK_PACKET key is the low word of a 32-bit Virtual Key value used for non-keyboard input methods. For more information, see Remark in KEYBDINPUT, SendInput, WM_KEYDOWN, and WM_KEYUP
-    case VK_ATTN // Attn key
-    case VK_CRSEL // CrSel key
-    case VK_EXSEL // ExSel key
-    case VK_EREOF // Erase EOF key
-    case VK_PLAY // Play key
-    case VK_ZOOM // Zoom key
-    case VK_NONAME // Reserved
-    case VK_PA1 // PA1 key
-    case VK_OEM_CLEAR // Clear key
+    case LeftMouse = "VK_LBUTTON" // Left mouse button
+    case RightMouse = "VK_RBUTTON" // Right mouse button
+    case Cancel = "VK_CANCEL" // Control-break processing
+    case MiddleMouse = "VK_MBUTTON" // Middle mouse button (three-button mouse)
+    case X1Mouse = "VK_XBUTTON1" // X1 mouse button
+    case X2Mouse = "VK_XBUTTON2" // X2 mouse button
+    case Backspace = "VK_BACK" // BACKSPACE key
+    case Tab = "VK_TAB" // TAB key
+    case Clear = "VK_CLEAR" // CLEAR key
+    case ReturnOrEnter = "VK_RETURN" // ENTER key
+    case Shift = "VK_SHIFT" // SHIFT key
+    case CTRL = "VK_CONTROL" // CTRL key
+    case Alt = "VK_MENU" // ALT key
+    case Pause = "VK_PAUSE" // PAUSE key
+    case CapsLock = "VK_CAPITAL" // CAPS LOCK key
+    case Kana = "VK_KANA" // IME Kana mode
+    case Hanguel = "VK_HANGUEL" // IME Hanguel mode (maintained for compatibility; use VK_HANGUL)
+    case Hangul = "VK_HANGUL" // IME Hangul mode
+    case IMEOn = "VK_IME_ON" // IME On
+    case Junja = "VK_JUNJA" // IME Junja mode
+    case Final = "VK_FINAL" // IME final mode
+    case Hanja = "VK_HANJA" // IME Hanja mode
+    case Kanji = "VK_KANJI" // IME Kanji mode
+    case IMEOff = "VK_IME_OFF" // IME Off
+    case Escape = "VK_ESCAPE" // ESC key
+    case Convert = "VK_CONVERT" // IME convert
+    case NonConvert = "VK_NONCONVERT" // IME nonconvert
+    case Accept = "VK_ACCEPT" // IME accept
+    case ModeChange = "VK_MODECHANGE" // IME mode change request
+    case Spacebar = "VK_SPACE" // SPACEBAR
+    case PageUp = "VK_PRIOR" // PAGE UP key
+    case PageDown = "VK_NEXT" // PAGE DOWN key
+    case End = "VK_END" // END key
+    case Home = "VK_HOME" // HOME key
+    case Left = "VK_LEFT" // LEFT ARROW key
+    case Up = "VK_UP" // UP ARROW key
+    case Right = "VK_RIGHT" // RIGHT ARROW key
+    case Down = "VK_DOWN" // DOWN ARROW key
+    case Select = "VK_SELECT" // SELECT key
+    case Print = "VK_PRINT" // PRINT key
+    case Execute = "VK_EXECUTE" // EXECUTE key
+    case PrintScreen = "VK_SNAPSHOT" // PRINT SCREEN key
+    case Insert = "VK_INSERT" // INS key
+    case Delete = "VK_DELETE" // DEL key
+    case Help = "VK_HELP" // HELP key
+    case Key0 = "VK_0" // 0 key
+    case Key1 = "VK_1" // 1 key
+    case Key2 = "VK_2" // 2 key
+    case Key3 = "VK_3" // 3 key
+    case Key4 = "VK_4" // 4 key
+    case Key5 = "VK_5" // 5 key
+    case Key6 = "VK_6" // 6 key
+    case Key7 = "VK_7" // 7 key
+    case Key8 = "VK_8" // 8 key
+    case Key9 = "VK_9" // 9 key
+    case KeyA = "VK_A" // A key
+    case KeyB = "VK_B" // B key
+    case KeyC = "VK_C" // C key
+    case KeyD = "VK_D" // D key
+    case KeyE = "VK_E" // E key
+    case KeyF = "VK_F" // F key
+    case KeyG = "VK_G" // G key
+    case KeyH = "VK_H" // H key
+    case KeyI = "VK_I" // I key
+    case KeyJ = "VK_J" // J key
+    case KeyK = "VK_K" // K key
+    case KeyL = "VK_L" // L key
+    case KeyM = "VK_M" // M key
+    case KeyN = "VK_N" // N key
+    case KeyO = "VK_O" // O key
+    case KeyP = "VK_P" // P key
+    case KeyQ = "VK_Q" // Q key
+    case KeyR = "VK_R" // R key
+    case KeyS = "VK_S" // S key
+    case KeyT = "VK_T" // T key
+    case KeyU = "VK_U" // U key
+    case KeyV = "VK_V" // V key
+    case KeyW = "VK_W" // W key
+    case KeyX = "VK_X" // X key
+    case KeyY = "VK_Y" // Y key
+    case KeyZ = "VK_Z" // Z key
+    case LeftWindows = "VK_LWIN" // Left Windows key (Natural keyboard)
+    case RightWindows = "VK_RWIN" // Right Windows key (Natural keyboard)
+    case Apps = "VK_APPS" // Applications key (Natural keyboard)
+    case Sleep = "VK_SLEEP" // Computer Sleep key
+    case Num0 = "VK_NUMPAD0" // Numeric keypad 0 key
+    case Num1 = "VK_NUMPAD1" // Numeric keypad 1 key
+    case Num2 = "VK_NUMPAD2" // Numeric keypad 2 key
+    case Num3 = "VK_NUMPAD3" // Numeric keypad 3 key
+    case Num4 = "VK_NUMPAD4" // Numeric keypad 4 key
+    case Num5 = "VK_NUMPAD5" // Numeric keypad 5 key
+    case Num6 = "VK_NUMPAD6" // Numeric keypad 6 key
+    case Num7 = "VK_NUMPAD7" // Numeric keypad 7 key
+    case Num8 = "VK_NUMPAD8" // Numeric keypad 8 key
+    case Num9 = "VK_NUMPAD9" // Numeric keypad 9 key
+    case NumMultiply = "VK_MULTIPLY" // Multiply key
+    case NumAdd = "VK_ADD" // Add key
+    case NumSeparator = "VK_SEPARATOR" // Separator key
+    case NumSubtract = "VK_SUBTRACT" // Subtract key
+    case NumDecimal = "VK_DECIMAL" // Decimal key
+    case NumDivide = "VK_DIVIDE" // Divide key
+    case F1 = "VK_F1" // F1 key
+    case F2 = "VK_F2" // F2 key
+    case F3 = "VK_F3" // F3 key
+    case F4 = "VK_F4" // F4 key
+    case F5 = "VK_F5" // F5 key
+    case F6 = "VK_F6" // F6 key
+    case F7 = "VK_F7" // F7 key
+    case F8 = "VK_F8" // F8 key
+    case F9 = "VK_F9" // F9 key
+    case F10 = "VK_F10" // F10 key
+    case F11 = "VK_F11" // F11 key
+    case F12 = "VK_F12" // F12 key
+    case F13 = "VK_F13" // F13 key
+    case F14 = "VK_F14" // F14 key
+    case F15 = "VK_F15" // F15 key
+    case F16 = "VK_F16" // F16 key
+    case F17 = "VK_F17" // F17 key
+    case F18 = "VK_F18" // F18 key
+    case F19 = "VK_F19" // F19 key
+    case F20 = "VK_F20" // F20 key
+    case F21 = "VK_F21" // F21 key
+    case F22 = "VK_F22" // F22 key
+    case F23 = "VK_F23" // F23 key
+    case F24 = "VK_F24" // F24 key
+    case NumLock = "VK_NUMLOCK" // NUM LOCK key
+    case ScrollLock = "VK_SCROLL" // SCROLL LOCK key
+    case LeftShift = "VK_LSHIFT" // Left SHIFT key
+    case RightShift = "VK_RSHIFT" // Right SHIFT key
+    case LeftCtrl = "VK_LCONTROL" // Left CONTROL key
+    case RightCtrl = "VK_RCONTROL" // Right CONTROL key
+    case LeftAlt = "VK_LMENU" // Left MENU key
+    case RightAlt = "VK_RMENU" // Right MENU key
+    case BrowserBack = "VK_BROWSER_BACK" // Browser Back key
+    case BrowserForward = "VK_BROWSER_FORWARD" // Browser Forward key
+    case BrowserRefresh = "VK_BROWSER_REFRESH" // Browser Refresh key
+    case BrowserStop = "VK_BROWSER_STOP" // Browser Stop key
+    case BrowserSearch = "VK_BROWSER_SEARCH" // Browser Search key
+    case BrowserFavorites = "VK_BROWSER_FAVORITES" // Browser Favorites key
+    case BrowserHome = "VK_BROWSER_HOME" // Browser Start and Home key
+    case VolumeMute = "VK_VOLUME_MUTE" // Volume Mute key
+    case VolumeDown = "VK_VOLUME_DOWN" // Volume Down key
+    case VolumeUp = "VK_VOLUME_UP" // Volume Up key
+    case NextTrack = "VK_MEDIA_NEXT_TRACK" // Next Track key
+    case PrevTrack = "VK_MEDIA_PREV_TRACK" // Previous Track key
+    case Stop = "VK_MEDIA_STOP" // Stop Media key
+    case PlayPause = "VK_MEDIA_PLAY_PAUSE" // Play/Pause Media key
+    case LaunchMail = "VK_LAUNCH_MAIL" // Start Mail key
+    case LaunchMedia = "VK_LAUNCH_MEDIA_SELECT" // Select Media key
+    case LaunchApp1 = "VK_LAUNCH_APP1" // Start Application 1 key
+    case LaunchApp2 = "VK_LAUNCH_APP2" // Start Application 2 key
+    case Semicolon = "VK_OEM_1" // Used for miscellaneous characters; it can vary by keyboard.For the US standard keyboard, the ';:' key
+    case KeyEquals = "VK_OEM_PLUS" // For any country/region, the '+' key
+    case KeyComma = "VK_OEM_COMMA" // For any country/region, the ',' key
+    case KeyMinus = "VK_OEM_MINUS" // For any country/region, the '-' key
+    case KeyPeriod = "VK_OEM_PERIOD" // For any country/region, the '.' key
+    case KeyForwardSlash = "VK_OEM_2" // Used for miscellaneous characters; it can vary by keyboard.For the US standard keyboard, the '/?' key
+    case KeyAccentGrave = "VK_OEM_3" // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '`~' key
+    case LeftSquareBracket = "VK_OEM_4" // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '[{' key
+    case BackSlash = "VK_OEM_5" // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '\|' key
+    case RightSquareBracket = "VK_OEM_6" // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the ']}' key
+    case SingleQuote = "VK_OEM_7" // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the 'single-quote/double-quote' key
+    case OEM_8 = "VK_OEM_8" // Used for miscellaneous characters; it can vary by keyboard.
+    case AngleOrBackSlash = "VK_OEM_102" // Either the angle bracket key or the backslash key on the RT 102-key keyboard
+    case ProcessKey = "VK_PROCESSKEY" // IME PROCESS key
+    case Packet = "VK_PACKET" // Used to pass Unicode characters as if they were keystrokes. The VK_PACKET key is the low word of a 32-bit Virtual Key value used for non-keyboard input methods. For more information, see Remark in KEYBDINPUT, SendInput, WM_KEYDOWN, and WM_KEYUP
+    case Attn = "VK_ATTN" // Attn key
+    case Crsel = "VK_CRSEL" // CrSel key
+    case Exsel = "VK_EXSEL" // ExSel key
+    case EraseEOF = "VK_EREOF" // Erase EOF key
+    case Play = "VK_PLAY" // Play key
+    case Zoom = "VK_ZOOM" // Zoom key
+    case Noname = "VK_NONAME" // Reserved
+    case PA1 = "VK_PA1" // PA1 key
+    case OEM_Clear = "VK_OEM_CLEAR" // Clear key
 }
 
 PlaygroundPage.current.setLiveView(MakePlaygroundView().border(Color.gray))
