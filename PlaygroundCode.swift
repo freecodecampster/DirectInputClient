@@ -102,10 +102,9 @@ struct MakePlaygroundView: View {
                         title: "Keys", 
                         buttons: [
                             MakeButton(title: "Switch Between Open Apps", messageToSend: [Scancode.Alt, Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            // Provide a nil argument and the button use default value for that parameter
-                            MakeButton(title: "1", messageToSend: [Scancode.Key1], buttonColor: nil, buttonToggle: nil),
-                            MakeButton(title: "A", messageToSend: [Scancode.A], buttonColor: nil, buttonToggle: nil),
-                            MakeButton(title: "Volume Up", messageToSend: [Scancode.VolumeUp], buttonColor: nil, buttonToggle: nil)
+                            MakeButton(title: "1", messageToSend: [Scancode.Key1]),
+                            MakeButton(title: "A", messageToSend: [Scancode.A]),
+                            MakeButton(title: "Volume Up", messageToSend: [Scancode.VolumeUp])
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                     )
@@ -116,7 +115,7 @@ struct MakePlaygroundView: View {
                                 title: "🖥 Windows Key", 
                                 buttons: [
                                     MakeButton(title: "Show Start Menu", messageToSend: [Scancode.LeftWindows], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)),buttonToggle: false),
-                                    MakeButton(title: "Show Task Switcher", messageToSend: [Scancode.LeftWindows, Scancode.Tab], buttonColor: nil, buttonToggle: nil)
+                                    MakeButton(title: "Show Task Switcher", messageToSend: [Scancode.LeftWindows, Scancode.Tab])
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                             )
