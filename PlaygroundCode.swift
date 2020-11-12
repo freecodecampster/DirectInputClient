@@ -101,10 +101,24 @@ struct MakePlaygroundView: View {
                     MakePopover(
                         title: "Keys", 
                         buttons: [
-                            MakeButton(title: "Switch Between Open Apps", messageToSend: [Scancode.Alt, Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "1", messageToSend: [Scancode.Key1]),
-                            MakeButton(title: "A", messageToSend: [Scancode.A]),
-                            MakeButton(title: "Volume Up", messageToSend: [Scancode.VolumeUp])
+                            MakeButton(
+                                title: "Switch Between Open Apps", 
+                                messageToSend: [Scancode.Alt, Scancode.Tab], 
+                                buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
+                            ),
+                            MakeButton(
+                                title: "1", 
+                                messageToSend: [Scancode.Key1]
+                            ),
+                            MakeButton(
+                                title: "A", 
+                                messageToSend: [Scancode.A]
+                            ),
+                            MakeButton(
+                                title: "Volume Up", 
+                                messageToSend: [Scancode.VolumeUp], 
+                                buttonColor: Color(#colorLiteral(red: 0.9686274509803922, green: 0.7803921568627451, blue: 0.34509803921568627, alpha: 1.0))
+                            )
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                     )
@@ -114,8 +128,17 @@ struct MakePlaygroundView: View {
                             MakePopover(
                                 title: "🖥 Windows Key", 
                                 buttons: [
-                                    MakeButton(title: "Show Start Menu", messageToSend: [Scancode.LeftWindows], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)),buttonToggle: false),
-                                    MakeButton(title: "Show Task Switcher", messageToSend: [Scancode.LeftWindows, Scancode.Tab])
+                                    MakeButton(
+                                        title: "Show Start Menu", 
+                                        messageToSend: [Scancode.LeftWindows], 
+                                        buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)),
+                                        buttonToggle: false
+                                    ),
+                                    MakeButton(
+                                        title: "Show Task Switcher", 
+                                        messageToSend: [Scancode.LeftWindows, Scancode.Tab], 
+                                        buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
+                                    )
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                             )
