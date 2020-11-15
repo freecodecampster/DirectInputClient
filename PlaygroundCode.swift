@@ -104,7 +104,7 @@ struct MakePlaygroundView: View {
                     )
                     MakeButton(
                         title: "Vicreo switch app", 
-                        vicreoCommand: VicreoCommand(key: .tab, type: .press, modifiers: [.command]),
+                        vicreoListenerCommand: VicreoCommand(key: .tab, type: .press, modifiers: [.command]),
                         buttonToggle: false
                     )
                     MakePopover(
@@ -239,14 +239,14 @@ struct MakePopover: View, Identifiable {
 struct MakeButton: View, Identifiable {
     var id: UUID? = UUID()
     var title: String
-    var vicreoCommand: VicreoCommand?
+    var vicreoListenerCommand: VicreoCommand?
     var directInputServerCommand: [Scancode]? = []
     var buttonColor: Color? = .blue
     var buttonToggle: Bool? = false
     @State private var keyToggledOn: Bool = false
     // Using Vicreo Key Listener or Direct Input Server
     var jsonCommand: Bool {
-        if vicreoCommand != nil {
+        if vicreoListenerCommand != nil {
             return true
         }
         return false
@@ -260,7 +260,7 @@ struct MakeButton: View, Identifiable {
             }
             return serverString
         } else {
-            if let jsonToServer = vicreoCommand?.encodeToJSON() {
+            if let jsonToServer = vicreoListenerCommand?.encodeToJSON() {
                 return jsonToServer
             }
             return "Error encoding JSON"
@@ -275,9 +275,9 @@ struct MakeButton: View, Identifiable {
             }
             return scancodeString
         } else {
-            var vicreoKey: String = vicreoCommand?.key.rawValue ?? ""
-            var vicreoType: String = vicreoCommand?.type.rawValue ?? ""
-            var vicreoModifiers: String = vicreoCommand?.modifiersArrayToString ?? ""
+            var vicreoKey: String = vicreoListenerCommand?.key.rawValue ?? ""
+            var vicreoType: String = vicreoListenerCommand?.type.rawValue ?? ""
+            var vicreoModifiers: String = vicreoListenerCommand?.modifiersArrayToString ?? ""
             return "\(vicreoType) \(vicreoKey) \(vicreoModifiers)"
         }
     }
