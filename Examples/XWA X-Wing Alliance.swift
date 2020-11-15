@@ -6,12 +6,12 @@ import Network
 
 // MARK: - Server Address
 
-/// Address of Python Server that simulates HID inputs
+/// Address of Server that simulates HID inputs
 let serverIPAddress = "192.168.68.128"
 
 // MARK: - Client Connection
 
-/// Creates a connection to Python Server and sends messages to the server.
+/// Creates a connection to Server and sends messages to the server.
 public class TCPClient {
     // Singleton pattern
     private static var sharedTCPClient: TCPClient?
@@ -94,20 +94,19 @@ let tcpClient = TCPClient.returnSingleton(serverIPAddress: serverIPAddress)
 struct MakePlaygroundView: View {
     // Type Color() to bring up a color picker
     var body: some View {
-        // Seems to be a bug where you can only have 9 buttons in one VStack/Group/Popover etc, create another and add buttons to that
         ScrollView([.horizontal, .vertical]) {
             HStack {
                 VStack {
                     MakePopover(
                         title: "🎮 Game Controls", 
                         buttons: [
-                            MakeButton(title: "Quit Mission", messageToSend: [Scancode.Q, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Restart Mission", messageToSend: [Scancode.H, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Quit Mission", directInputServerCommand: [Scancode.Q, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Restart Mission", directInputServerCommand: [Scancode.H, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
                             // Alt Alt
-                            MakeButton(title: "Pause Game", messageToSend: [Scancode.Alt, Scancode.P], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Cycle Graphics Detail Settings", messageToSend: [Scancode.Alt, Scancode.D], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Toggle System Message Display", messageToSend: [Scancode.Alt, Scancode.S], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Display Game Version", messageToSend: [Scancode.Alt, Scancode.V], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
+                            MakeButton(title: "Pause Game", directInputServerCommand: [Scancode.Alt, Scancode.P], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Cycle Graphics Detail Settings", directInputServerCommand: [Scancode.Alt, Scancode.D], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Toggle System Message Display", directInputServerCommand: [Scancode.Alt, Scancode.S], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Display Game Version", directInputServerCommand: [Scancode.Alt, Scancode.V], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                     )
@@ -117,33 +116,33 @@ struct MakePlaygroundView: View {
                             MakePopover(
                                 title: "HUD Toggle", 
                                 buttons: [
-                                    MakeButton(title: "Toggle HUD", messageToSend: [Scancode.LeftCtrl, Scancode.End], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Toggle Left MFD", messageToSend: [Scancode.Delete], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Toggle Right MFD", messageToSend: [Scancode.PageDown], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Toggle Middle HUD", messageToSend: [Scancode.Home], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Toggle CMD", messageToSend: [Scancode.End], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Toggle HUD", directInputServerCommand: [Scancode.LeftCtrl, Scancode.End], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Toggle Left MFD", directInputServerCommand: [Scancode.Delete], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Toggle Right MFD", directInputServerCommand: [Scancode.PageDown], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Toggle Middle HUD", directInputServerCommand: [Scancode.Home], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Toggle CMD", directInputServerCommand: [Scancode.End], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))),
                                     // Alt Alt
-                                    MakeButton(title: "Simple HUD Mode", messageToSend: [Scancode.Alt, Scancode.KeyPeriod], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0)))
+                                    MakeButton(title: "Simple HUD Mode", directInputServerCommand: [Scancode.Alt, Scancode.KeyPeriod], buttonColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.36470588235294116, green: 0.06666666666666667, blue: 0.9686274509803922, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "HUD Activate", 
                                 buttons: [
-                                    MakeButton(title: "Activate Left MFD", messageToSend: [Scancode.Left], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Activate Right MFD", messageToSend: [Scancode.Right], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Flight Commands", messageToSend: [Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Wingmate Commands MFD", messageToSend: [Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
+                                    MakeButton(title: "Activate Left MFD", directInputServerCommand: [Scancode.Left], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Activate Right MFD", directInputServerCommand: [Scancode.Right], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Flight Commands", directInputServerCommand: [Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Wingmate Commands MFD", directInputServerCommand: [Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "HUD Scrolling", 
                                 buttons: [
-                                    MakeButton(title: "Scroll Up", messageToSend: [Scancode.Up], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Scroll Down", messageToSend: [Scancode.Down], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Scroll Forward", messageToSend: [Scancode.Right], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Scroll Backward", messageToSend: [Scancode.Left], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
+                                    MakeButton(title: "Scroll Up", directInputServerCommand: [Scancode.Up], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Scroll Down", directInputServerCommand: [Scancode.Down], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Scroll Forward", directInputServerCommand: [Scancode.Right], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Scroll Backward", directInputServerCommand: [Scancode.Left], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))
                             )
@@ -156,40 +155,40 @@ struct MakePlaygroundView: View {
                             MakePopover(
                                 title: "🔭 View Controls", 
                                 buttons: [
-                                    MakeButton(title: "Centre View In Cockpit", messageToSend: [Scancode.Num5], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Centre View In Cockpit", directInputServerCommand: [Scancode.Num5], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
                                     // KeyForwardSlash // Used for miscellaneous characters; it can vary by keyboard.For the US standard keyboard, the '/?' key
-                                    MakeButton(title: "Toggle external view", messageToSend: [Scancode.KeyForwardSlash], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))), 
-                                    MakeButton(title: "Orbit around craft using joystick", messageToSend: [Scancode.NumMultiply], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Toggle cockpit off/on", messageToSend: [Scancode.KeyPeriod], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Free Look", messageToSend: [Scancode.NumMultiply], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)), buttonToggle: true),
-                                    MakeButton(title: "Padlock Target", messageToSend: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Next Target", messageToSend: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Previous Target", messageToSend: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
+                                    MakeButton(title: "Toggle external view", directInputServerCommand: [Scancode.KeyForwardSlash], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))), 
+                                    MakeButton(title: "Orbit around craft using joystick", directInputServerCommand: [Scancode.NumMultiply], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Toggle cockpit off/on", directInputServerCommand: [Scancode.KeyPeriod], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Free Look", directInputServerCommand: [Scancode.NumMultiply], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)), buttonToggle: true),
+                                    MakeButton(title: "Padlock Target", directInputServerCommand: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Next Target", directInputServerCommand: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Previous Target", directInputServerCommand: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "Other View Keys", 
                                 buttons: [
-                                    MakeButton(title: "Flyby Camera In External View", messageToSend: [Scancode.Alt, Scancode.J], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Target Camera", messageToSend: [Scancode.Alt, Scancode.U], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Warhead Camera", messageToSend: [Scancode.Alt, Scancode.N], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Look Around Cockpit Using Mouse", messageToSend: [Scancode.ScrollLock], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0)), buttonToggle: true)
+                                    MakeButton(title: "Flyby Camera In External View", directInputServerCommand: [Scancode.Alt, Scancode.J], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Target Camera", directInputServerCommand: [Scancode.Alt, Scancode.U], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Warhead Camera", directInputServerCommand: [Scancode.Alt, Scancode.N], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Look Around Cockpit Using Mouse", directInputServerCommand: [Scancode.ScrollLock], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0)), buttonToggle: true)
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "🗺 In-Flight Map", 
                                 buttons: [
-                                    MakeButton(title: "Toggle In-Flight Map", messageToSend: [Scancode.M], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Toggle Between 2D and 3D Map", messageToSend: [Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Zoom In On Target On Map", messageToSend: [Scancode.Z], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Centre Target in 2D Map", messageToSend: [Scancode.C], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Target Tracking On", messageToSend: [Scancode.NumAdd], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Target Tracking Off", messageToSend: [Scancode.NumSubtract], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Follow Target On Map", messageToSend: [Scancode.NumDivide], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Don't Follow Target On Map", messageToSend: [Scancode.NumMultiply], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Brings Up Help Screen", messageToSend: [Scancode.H], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
+                                    MakeButton(title: "Toggle In-Flight Map", directInputServerCommand: [Scancode.M], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Toggle Between 2D and 3D Map", directInputServerCommand: [Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Zoom In On Target On Map", directInputServerCommand: [Scancode.Z], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Centre Target in 2D Map", directInputServerCommand: [Scancode.C], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Target Tracking On", directInputServerCommand: [Scancode.NumAdd], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Target Tracking Off", directInputServerCommand: [Scancode.NumSubtract], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Follow Target On Map", directInputServerCommand: [Scancode.NumDivide], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Don't Follow Target On Map", directInputServerCommand: [Scancode.NumMultiply], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Brings Up Help Screen", directInputServerCommand: [Scancode.H], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))
                             )
@@ -200,56 +199,56 @@ struct MakePlaygroundView: View {
                     MakePopover(
                         title: "🚚 Docking and Picking Up", 
                         buttons: [
-                            MakeButton(title: "Dock with Craft", messageToSend: [Scancode.LeftShift, Scancode.D], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
-                            MakeButton(title: "Pick Up Object", messageToSend: [Scancode.LeftShift, Scancode.P], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
-                            MakeButton(title: "Release Object", messageToSend: [Scancode.LeftShift, Scancode.R], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0)))
+                            MakeButton(title: "Dock with Craft", directInputServerCommand: [Scancode.LeftShift, Scancode.D], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
+                            MakeButton(title: "Pick Up Object", directInputServerCommand: [Scancode.LeftShift, Scancode.P], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
+                            MakeButton(title: "Release Object", directInputServerCommand: [Scancode.LeftShift, Scancode.R], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))
                     )
                     MakePopover(
                         title: "🚀 Propulsion Controls", 
                         buttons: [
-                            MakeButton(title: "Match targeted craft's speed", messageToSend: [Scancode.ReturnOrEnter], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Match targeted craft's speed", directInputServerCommand: [Scancode.ReturnOrEnter], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
                             // BackSlash // Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '\|' key
-                            MakeButton(title: "Full Stop", messageToSend: [Scancode.BackSlash], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Full Stop", directInputServerCommand: [Scancode.BackSlash], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
                             // KeyEquals is the EQUALS key
-                            MakeButton(title: "Increase Throttle", messageToSend: [Scancode.KeyEquals], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Decrease Throttle", messageToSend: [Scancode.KeyMinus], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Increase Throttle", directInputServerCommand: [Scancode.KeyEquals], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Decrease Throttle", directInputServerCommand: [Scancode.KeyMinus], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
                             // LeftSquareBracket [
-                            MakeButton(title: "1/3 Throttle", messageToSend: [Scancode.LeftSquareBracket], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "1/3 Throttle", directInputServerCommand: [Scancode.LeftSquareBracket], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
                             // RightSquareBracket ]
-                            MakeButton(title: "2/3 Throttle", messageToSend: [Scancode.RightSquareBracket], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Full Throttle", messageToSend: [Scancode.Backspace], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Engage Hyperspace", messageToSend: [Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Toggle S-Foil (X-Wing and B-Wing)", messageToSend: [Scancode.V], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0)))
+                            MakeButton(title: "2/3 Throttle", directInputServerCommand: [Scancode.RightSquareBracket], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Full Throttle", directInputServerCommand: [Scancode.Backspace], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Engage Hyperspace", directInputServerCommand: [Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Toggle S-Foil (X-Wing and B-Wing)", directInputServerCommand: [Scancode.V], buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                     )
                     MakePopover(
                         title: "📱 Communication To Your Wingmates", 
                         buttons: [
-                            MakeButton(title: "Attack My Target", messageToSend: [Scancode.LeftShift, Scancode.A], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Ignore My Target", messageToSend: [Scancode.LeftShift, Scancode.I], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Cover Me", messageToSend: [Scancode.LeftShift, Scancode.C], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Wait For Orders", messageToSend: [Scancode.LeftShift, Scancode.W], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Go Ahead", messageToSend: [Scancode.LeftShift, Scancode.G], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Board To Reload", messageToSend: [Scancode.LeftShift, Scancode.G], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Evade", messageToSend: [Scancode.LeftShift, Scancode.E], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Head Home", messageToSend: [Scancode.LeftShift, Scancode.H], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Report In", messageToSend: [Scancode.LeftShift, Scancode.R], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
+                            MakeButton(title: "Attack My Target", directInputServerCommand: [Scancode.LeftShift, Scancode.A], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Ignore My Target", directInputServerCommand: [Scancode.LeftShift, Scancode.I], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Cover Me", directInputServerCommand: [Scancode.LeftShift, Scancode.C], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Wait For Orders", directInputServerCommand: [Scancode.LeftShift, Scancode.W], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Go Ahead", directInputServerCommand: [Scancode.LeftShift, Scancode.G], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Board To Reload", directInputServerCommand: [Scancode.LeftShift, Scancode.G], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Evade", directInputServerCommand: [Scancode.LeftShift, Scancode.E], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Head Home", directInputServerCommand: [Scancode.LeftShift, Scancode.H], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Report In", directInputServerCommand: [Scancode.LeftShift, Scancode.R], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))
                     )
                     MakePopover(
                         title: "📱 Communication Controls", 
                         buttons: [
-                            MakeButton(title: "Cancel Chat Line to Other Players", messageToSend: [Scancode.Escape], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Cycle Chat between Team/Enemy/All", messageToSend: [Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Confim Critical Orders", messageToSend: [Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Custom Message #1", messageToSend: [Scancode.LeftShift, Scancode.Key1], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Custom Message #2", messageToSend: [Scancode.LeftShift, Scancode.Key2], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Custom Message #3", messageToSend: [Scancode.LeftShift, Scancode.Key3], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
-                            MakeButton(title: "Custom Message #4", messageToSend: [Scancode.LeftShift, Scancode.Key4], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
+                            MakeButton(title: "Cancel Chat Line to Other Players", directInputServerCommand: [Scancode.Escape], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Cycle Chat between Team/Enemy/All", directInputServerCommand: [Scancode.Tab], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Confim Critical Orders", directInputServerCommand: [Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Custom Message #1", directInputServerCommand: [Scancode.LeftShift, Scancode.Key1], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Custom Message #2", directInputServerCommand: [Scancode.LeftShift, Scancode.Key2], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Custom Message #3", directInputServerCommand: [Scancode.LeftShift, Scancode.Key3], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))),
+                            MakeButton(title: "Custom Message #4", directInputServerCommand: [Scancode.LeftShift, Scancode.Key4], buttonColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.5568627450980392, green: 0.35294117647058826, blue: 0.9686274509803922, alpha: 1.0))
                     )
@@ -261,63 +260,63 @@ struct MakePlaygroundView: View {
                             MakePopover(
                                 title: "🎯 Targets", 
                                 buttons: [
-                                    MakeButton(title: "Target Nearest Mission Objective", messageToSend: [Scancode.Key0], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Padlock Target", messageToSend: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Next Target", messageToSend: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Previous Target", messageToSend: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Target Forward To Next Friendly Craft", messageToSend: [Scancode.F1], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Target Backwards To Previous Friendly Craft", messageToSend: [Scancode.LeftShift, Scancode.F1], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Target Forward To Next Neutral Craft", messageToSend: [Scancode.F2], buttonColor: Color(#colorLiteral(red: 0.25882352941176473, green: 0.7568627450980392, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Target Backwards To Previous Neutral Craft", messageToSend: [Scancode.LeftShift, Scancode.F2], buttonColor: Color(#colorLiteral(red: 0.25882352941176473, green: 0.7568627450980392, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Target Forward To Next Enemy Craft", messageToSend: [Scancode.F3], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
-                                    MakeButton(title: "Target Backwards To Previous Enemy Craft", messageToSend: [Scancode.LeftShift, Scancode.F3], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)))
+                                    MakeButton(title: "Target Nearest Mission Objective", directInputServerCommand: [Scancode.Key0], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Padlock Target", directInputServerCommand: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Next Target", directInputServerCommand: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Previous Target", directInputServerCommand: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Target Forward To Next Friendly Craft", directInputServerCommand: [Scancode.F1], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Target Backwards To Previous Friendly Craft", directInputServerCommand: [Scancode.LeftShift, Scancode.F1], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Target Forward To Next Neutral Craft", directInputServerCommand: [Scancode.F2], buttonColor: Color(#colorLiteral(red: 0.25882352941176473, green: 0.7568627450980392, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Target Backwards To Previous Neutral Craft", directInputServerCommand: [Scancode.LeftShift, Scancode.F2], buttonColor: Color(#colorLiteral(red: 0.25882352941176473, green: 0.7568627450980392, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Target Forward To Next Enemy Craft", directInputServerCommand: [Scancode.F3], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
+                                    MakeButton(title: "Target Backwards To Previous Enemy Craft", directInputServerCommand: [Scancode.LeftShift, Scancode.F3], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "🎯 Targeting Friendly", 
                                 buttons: [
-                                    MakeButton(title: "Target Nearest Mission Objective", messageToSend: [Scancode.Key0], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Scroll through available targets", messageToSend: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Previous Target", messageToSend: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                                    MakeButton(title: "Target Nav Buoy", messageToSend: [Scancode.N], buttonColor: Color(#colorLiteral(red: 0.23921568627450981, green: 0.6745098039215687, blue: 0.9686274509803922, alpha: 1.0))),
-                                    MakeButton(title: "Padlock Target", messageToSend: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Next Target", messageToSend: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Previous Target", messageToSend: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
+                                    MakeButton(title: "Target Nearest Mission Objective", directInputServerCommand: [Scancode.Key0], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Scroll through available targets", directInputServerCommand: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Previous Target", directInputServerCommand: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                                    MakeButton(title: "Target Nav Buoy", directInputServerCommand: [Scancode.N], buttonColor: Color(#colorLiteral(red: 0.23921568627450981, green: 0.6745098039215687, blue: 0.9686274509803922, alpha: 1.0))),
+                                    MakeButton(title: "Padlock Target", directInputServerCommand: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Next Target", directInputServerCommand: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Previous Target", directInputServerCommand: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "🎯 Targeting Enemy", 
                                 buttons: [
-                                    MakeButton(title: "Nearest Enemy", messageToSend: [Scancode.R], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
-                                    MakeButton(title: "Enemy Targeting Me", messageToSend: [Scancode.E], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
-                                    MakeButton(title: "Target Enemy Warhead", messageToSend: [Scancode.I], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
-                                    MakeButton(title: "Target Enemy Attacking Friend", messageToSend: [Scancode.A], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
-                                    MakeButton(title: "Next Target", messageToSend: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Previous Target", messageToSend: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Target Newest", messageToSend: [Scancode.U], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
-                                    MakeButton(title: "Padlock Target", messageToSend: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
+                                    MakeButton(title: "Nearest Enemy", directInputServerCommand: [Scancode.R], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
+                                    MakeButton(title: "Enemy Targeting Me", directInputServerCommand: [Scancode.E], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
+                                    MakeButton(title: "Target Enemy Warhead", directInputServerCommand: [Scancode.I], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
+                                    MakeButton(title: "Target Enemy Attacking Friend", directInputServerCommand: [Scancode.A], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
+                                    MakeButton(title: "Next Target", directInputServerCommand: [Scancode.T], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Previous Target", directInputServerCommand: [Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Target Newest", directInputServerCommand: [Scancode.U], buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))),
+                                    MakeButton(title: "Padlock Target", directInputServerCommand: [Scancode.L], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "🎯 Target Presets", 
                                 buttons: [
-                                    MakeButton(title: "Select Target Preset #1 as Target", messageToSend: [Scancode.F5], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Select Target Preset #2 as Target", messageToSend: [Scancode.LeftShift, Scancode.F6], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Select Target Preset #3 as Target", messageToSend: [Scancode.F2], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Save Target in Target Preset #1", messageToSend: [Scancode.LeftShift, Scancode.F5], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Save Target in Target Preset #2", messageToSend: [Scancode.LeftShift, Scancode.F6], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                                    MakeButton(title: "Save Target in Target Preset #3", messageToSend: [Scancode.LeftShift, Scancode.F7], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
+                                    MakeButton(title: "Select Target Preset #1 as Target", directInputServerCommand: [Scancode.F5], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Select Target Preset #2 as Target", directInputServerCommand: [Scancode.LeftShift, Scancode.F6], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Select Target Preset #3 as Target", directInputServerCommand: [Scancode.F2], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Save Target in Target Preset #1", directInputServerCommand: [Scancode.LeftShift, Scancode.F5], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Save Target in Target Preset #2", directInputServerCommand: [Scancode.LeftShift, Scancode.F6], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                                    MakeButton(title: "Save Target in Target Preset #3", directInputServerCommand: [Scancode.LeftShift, Scancode.F7], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))
                             ),
                             MakePopover(
                                 title: "🎯 Target Components", 
                                 buttons: [
-                                    MakeButton(title: "Cycle Through Your Target's Components", messageToSend: [Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                                    MakeButton(title: "Reverse Cycle Through Your Target's Components", messageToSend: [Scancode.LeftShift, Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
+                                    MakeButton(title: "Cycle Through Your Target's Components", directInputServerCommand: [Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                                    MakeButton(title: "Reverse Cycle Through Your Target's Components", directInputServerCommand: [Scancode.LeftShift, Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
                                 ],
                                 backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                             )
@@ -326,62 +325,62 @@ struct MakePlaygroundView: View {
                     MakePopover(
                         title: "🔫 Gun Turret Controls", 
                         buttons: [
-                            MakeButton(title: "Switch to/from Gunner position", messageToSend: [Scancode.G], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                            MakeButton(title: "Cycle Gunner or Pilot AI", messageToSend: [Scancode.F], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
+                            MakeButton(title: "Switch to/from Gunner position", directInputServerCommand: [Scancode.G], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                            MakeButton(title: "Cycle Gunner or Pilot AI", directInputServerCommand: [Scancode.F], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))
                     )
                     MakePopover(
                         title: "🧨 Weapons System Controls", 
                         buttons: [
-                            MakeButton(title: "Switch Weapons", messageToSend: [Scancode.W], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Switch Firing-Linking Modes", messageToSend: [Scancode.X], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Toggle Beam Weapon On/Off", messageToSend: [Scancode.B], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Fire Countermeasure", messageToSend: [Scancode.C], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Switch Weapons", directInputServerCommand: [Scancode.W], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Switch Firing-Linking Modes", directInputServerCommand: [Scancode.X], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Toggle Beam Weapon On/Off", directInputServerCommand: [Scancode.B], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Fire Countermeasure", directInputServerCommand: [Scancode.C], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
                             // Alt Alt
-                            MakeButton(title: "Fire Weapon", messageToSend: [Scancode.Alt, Scancode.Key2], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
-                            MakeButton(title: "Cycle Through Gun Harmonisation Modes", messageToSend: [Scancode.Z], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)))
+                            MakeButton(title: "Fire Weapon", directInputServerCommand: [Scancode.Alt, Scancode.Key2], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))),
+                            MakeButton(title: "Cycle Through Gun Harmonisation Modes", directInputServerCommand: [Scancode.Z], buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                     )
                     MakePopover(
                         title: "Sensors", 
                         buttons: [
-                            MakeButton(title: "Toggle Fwd Sensor/Shield Indicator", messageToSend: [Scancode.Insert], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                            MakeButton(title: "Toggle Fwd Sensor/Shield Indicator", directInputServerCommand: [Scancode.Insert], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
                             // PageUp Page Up
-                            MakeButton(title: "Toggle Rear Sensor/Shield Indicator", messageToSend: [Scancode.PageUp], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
+                            MakeButton(title: "Toggle Rear Sensor/Shield Indicator", directInputServerCommand: [Scancode.PageUp], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))
                     )
                     MakePopover(
                         title: "Pilot Safety Controls", 
                         buttons: [
-                            MakeButton(title: "Jump to new craft (Quick Skirmish mode)", messageToSend: [Scancode.J], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
+                            MakeButton(title: "Jump to new craft (Quick Skirmish mode)", directInputServerCommand: [Scancode.J], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
                             // Alt Alt
-                            MakeButton(title: "Eject", messageToSend: [Scancode.Alt, Scancode.E], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
-                            MakeButton(title: "End Mission", messageToSend: [Scancode.Q, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0)))
+                            MakeButton(title: "Eject", directInputServerCommand: [Scancode.Alt, Scancode.E], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))),
+                            MakeButton(title: "End Mission", directInputServerCommand: [Scancode.Q, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))
                     )
                     MakePopover(
                         title: "🔋 Energy Management Controls", 
                         buttons: [
-                            MakeButton(title: "Adjust Beam Weapon Recharge Rate", messageToSend: [Scancode.F8], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                            MakeButton(title: "Adjust Laser Cannon Recharge Rate", messageToSend: [Scancode.F9], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                            MakeButton(title: "Adjust Shields Recharge Rate", messageToSend: [Scancode.F10], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                            MakeButton(title: "Reset Recharge Rate", messageToSend: [Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                            MakeButton(title: "Transfer Laser Energy To Shields", messageToSend: [Scancode.LeftShift, Scancode.F9], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                            MakeButton(title: "Transfer All Lasers To Shields", messageToSend: [Scancode.LeftShift, Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
-                            MakeButton(title: "Transfer Shield Energy To Lasers", messageToSend: [Scancode.LeftShift, Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                            MakeButton(title: "Adjust Beam Weapon Recharge Rate", directInputServerCommand: [Scancode.F8], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                            MakeButton(title: "Adjust Laser Cannon Recharge Rate", directInputServerCommand: [Scancode.F9], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                            MakeButton(title: "Adjust Shields Recharge Rate", directInputServerCommand: [Scancode.F10], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                            MakeButton(title: "Reset Recharge Rate", directInputServerCommand: [Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                            MakeButton(title: "Transfer Laser Energy To Shields", directInputServerCommand: [Scancode.LeftShift, Scancode.F9], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                            MakeButton(title: "Transfer All Lasers To Shields", directInputServerCommand: [Scancode.LeftShift, Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
+                            MakeButton(title: "Transfer Shield Energy To Lasers", directInputServerCommand: [Scancode.LeftShift, Scancode.KeyComma], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))),
                             // Semicolon ;
-                            MakeButton(title: "Reset Transfer", messageToSend: [Scancode.Semicolon], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0)))
+                            MakeButton(title: "Reset Transfer", directInputServerCommand: [Scancode.Semicolon], buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                     )
                     MakePopover(
                         title: "🚧 Shield System Controls", 
                         buttons: [
-                            MakeButton(title: "Cycle Shield Settings", messageToSend: [Scancode.S], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0)))
+                            MakeButton(title: "Cycle Shield Settings", directInputServerCommand: [Scancode.S], buttonColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.5725490196078431, green: 0.0, blue: 0.23137254901960785, alpha: 1.0))
                     )
@@ -395,96 +394,177 @@ struct MakePopoverWithPopovers: View {
     @State private var showingPopover = false
     var title: String
     var popovers: [MakePopover]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
+        Button(
+            action: {
+                self.showingPopover.toggle()
+        },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+        }
+        )
+            .font(.headline)
+            .padding()
+            .foregroundColor(.white)
+            .popover(isPresented: self.$showingPopover) {
                 ScrollView {
                     ForEach (self.popovers) { popover in
                         popover
                     }
                 }
-            }.padding()
-        }.padding()
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+            )
+        )
+            .padding()
     }
 }
-
 
 struct MakePopover: View, Identifiable {
     var id: UUID? = UUID()
     @State private var showingPopover = false
     var title: String
     var buttons: [MakeButton]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
+        Button(
+            action: {
+                self.showingPopover.toggle()
+        },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+        }
+        )
+            .font(.headline)
+            .padding()
+            .foregroundColor(.white)
+            .popover(isPresented: self.$showingPopover) {
                 ScrollView {
                     ForEach (self.buttons) { button in
                         button
                     }
                 }
-            }.padding()
-        }.padding()
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+            )
+        )
+            .padding()
     }
 }
 
 struct MakeButton: View, Identifiable {
     var id: UUID? = UUID()
     var title: String
-    var messageToSend: [Scancode]? = []
-    var buttonColor: Color?
-    var buttonToggle: Bool?
+    var vicreoListenerCommand: VicreoCommand?
+    var directInputServerCommand: [Scancode]? = []
+    var buttonColor: Color? = .blue
+    var buttonToggle: Bool? = false
     @State private var keyToggledOn: Bool = false
-    var buttonAction: String {
-        var serverString: String = ""
-        for scancode in messageToSend! {
-            serverString += scancode.rawValue + " "
+    // Using Vicreo Key Listener or Direct Input Server
+    var jsonCommand: Bool {
+        if vicreoListenerCommand != nil {
+            return true
         }
-        return serverString
+        return false
     }
-    var scancodeString: String {
-        var scancodeString: String = ""
-        for scancode in messageToSend! {
-            scancodeString += String(describing: scancode) + " "
+    // String sent to server
+    var buttonAction: String {
+        if !jsonCommand ?? true {
+            var serverString: String = ""
+            for scancode in directInputServerCommand! {
+                serverString += scancode.rawValue + " "
+            }
+            return serverString
+        } else {
+            if let jsonToServer = vicreoListenerCommand?.encodeToJSON() {
+                return jsonToServer
+            }
+            return "Error encoding JSON"
         }
-        return scancodeString
+    }
+    // Key command displayed under button
+    var scancodeString: String {
+        if !jsonCommand ?? true {
+            var scancodeString: String = ""
+            for scancode in directInputServerCommand! {
+                scancodeString += String(describing: scancode) + " "
+            }
+            return scancodeString
+        } else {
+            var vicreoKey: String = vicreoListenerCommand?.key.rawValue ?? ""
+            var vicreoType: String = vicreoListenerCommand?.type.rawValue ?? ""
+            var vicreoModifiers: String = vicreoListenerCommand?.modifiersArrayToString ?? ""
+            return "\(vicreoType) \(vicreoKey) \(vicreoModifiers)"
+        }
     }
     
     var body: some View {
         VStack {
-            Button(title, action: {
-                var stringSentToServer: String = ""
-                if self.buttonToggle ?? false {
-                    if self.keyToggledOn {
-                        stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+            Button(
+                action: {
+                    var stringSentToServer: String = ""
+                    if self.buttonToggle ?? false {
+                        if self.keyToggledOn {
+                            // Vicreo Listener messages must be handled differently
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"down\"", with: "\"type\":\"up\"")
+                            } else { // Python server
+                                stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+                            }
+                        } else {
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"up\"", with: "\"type\":\"down\"")
+                            } else {
+                                stringSentToServer += "<TOGGLEON>" + self.buttonAction
+                            }
+                        }
+                        self.keyToggledOn.toggle()
                     } else {
-                        stringSentToServer = "<TOGGLEON>" + self.buttonAction
+                        stringSentToServer = self.buttonAction
                     }
-                    self.keyToggledOn.toggle()
-                } else {
-                    stringSentToServer = self.buttonAction
-                }
-                // Send message to server
-                tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
-            }).accentColor(buttonColor).font(.headline)
+                    // Send message to server
+                    tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
+            },
+                label: {
+                    Text(title).multilineTextAlignment(.center)
+            }
+            )
+                .font(.headline)
+                // Internal padding of button
+                .padding()
+                .foregroundColor(buttonColor!)
+                .overlay(
+                    Capsule(style: .continuous)
+                        .stroke(buttonColor!, style: StrokeStyle(lineWidth: 5))
+            )
+                .shadow(color: buttonColor!.opacity(0.25) ,radius: 2)
+                // Padding between button and keyboard shortcut
+                .padding(.bottom, 5)
             // Display keys pressed
             Text(self.scancodeString).font(.caption).foregroundColor(.gray)
-        }.padding().opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
+        }
+        .padding(10)
+        .opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
     }
-    
 }
 
 // These keys can be used with DirectInputServer
-// KeyEquals is the EQUALS key
+// VK_OEM_PLUS is the EQUALS key
 // https://docs.microsoft.com/en-us/uwp/api/Windows.System.VirtualKey?view=winrt-19041
 // Use Scancode.Escape.rawValue to return a string
 enum Scancode: String {
@@ -663,6 +743,165 @@ enum Scancode: String {
     case Noname = "VK_NONAME" // Reserved
     case PA1 = "VK_PA1" // PA1 key
     case OEM_Clear = "VK_OEM_CLEAR" // Clear key
+}
+
+enum VicreoModifier: String, Codable {
+    case alt
+    case command
+    case control
+    case shift
+}
+
+enum VicreoKey: String, Codable {
+    case backspace
+    case delete
+    case enter
+    case tab
+    case escape
+    case up
+    case down
+    case right
+    case left
+    case home
+    case end
+    case pageup
+    case pagedown
+    case f1
+    case f2
+    case f3
+    case f4
+    case f5
+    case f6
+    case f7
+    case f8
+    case f9
+    case f10
+    case f11
+    case f12
+    case command
+    case alt
+    case control
+    case shift
+    case right_shift
+    case space
+    case printscreen
+    case insert
+    case audio_mute
+    case audio_vol_down
+    case audio_vol_up
+    case audio_play
+    case audio_stop
+    case audio_pause
+    case audio_prev
+    case audio_next
+    case audio_rewind
+    case audio_forward
+    case audio_repeat
+    case audio_random
+    case numpad_0
+    case numpad_1
+    case numpad_2
+    case numpad_3
+    case numpad_4
+    case numpad_5
+    case numpad_6
+    case numpad_7
+    case numpad_8
+    case numpad_9
+    case lights_mon_up
+    case lights_mon_down
+    case lights_kbd_toggle
+    case lights_kbd_up
+    case lights_kbd_down
+    case a
+    case b
+    case c
+    case d
+    case e
+    case f
+    case g
+    case h
+    case i
+    case j
+    case k
+    case l
+    case m
+    case n
+    case o
+    case p
+    case q
+    case r
+    case s
+    case t
+    case u
+    case v
+    case w
+    case x
+    case y
+    case z
+    case keyboard0 = "0"
+    case keyboard1 = "1"
+    case keyboard2 = "2"
+    case keyboard3 = "3"
+    case keyboard4 = "4"
+    case keyboard5 = "5"
+    case keyboard6 = "6"
+    case keyboard7 = "7"
+    case keyboard8 = "8"
+    case keyboard9 = "9"
+}
+
+enum VicreoType: String, Codable {
+    case press
+    case pressSpecial
+    case down
+    case up
+    case processOSX
+    case shell
+    case string
+    case file
+}
+
+enum JSONError: Error {
+    case encodingError
+    case decodingError
+}
+
+struct VicreoCommand: Codable {
+    let key: VicreoKey
+    let type: VicreoType
+    // To send a key without a modifier - modifiers must be an empty array []
+    // messageText: "{ \"key\":\"z\", \"type\":\"press\", \"modifiers\":[] }"
+    let modifiers: [VicreoModifier?]
+    var modifiersArrayToString: String {
+        var modifiersString = ""
+        for modifier in modifiers {
+            modifiersString += (modifier?.rawValue ?? "" ) + " "
+        }
+        return modifiersString
+    }
+    
+    func encodeToJSON() -> String {
+        do {
+            let encodedData = try! JSONEncoder().encode(self) 
+            let jsonString = String(data: encodedData,
+                                    encoding: .utf8)
+            return jsonString ?? "JSON error"
+        }
+        catch {
+            print("JSON error")
+        }
+    }
+}
+
+// Debugging statement
+let vicreoCommand = VicreoCommand(key: VicreoKey.tab, type: VicreoType.press, modifiers: [VicreoModifier.alt])
+
+// Debugging view
+struct JSONView: View {
+    var body: some View {
+        Text(vicreoCommand.encodeToJSON())
+    }
 }
 
 PlaygroundPage.current.setLiveView(MakePlaygroundView().border(Color.gray))
