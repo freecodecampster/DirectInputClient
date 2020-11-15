@@ -5,7 +5,7 @@ import Network
 
 // MARK: - Server Address
 
-/// Address of Python Server that simulates HID inputs
+/// Address of Server that simulates HID inputs
 let serverIPAddress = "192.168.68.128"
 
 // MARK: - Client Connection
@@ -93,30 +93,39 @@ let tcpClient = TCPClient.returnSingleton(serverIPAddress: serverIPAddress)
 struct MakePlaygroundView: View {
     // Type Color() to bring up a color picker
     var body: some View {
-        // Seems to be a bug where you can only have 9 buttons in one VStack/Group/Popover etc, create another and add buttons to that
         ScrollView([.horizontal, .vertical]) {
             HStack {
                 VStack {
-                    MakeButton(title: "Left Shift", messageToSend: [Scancode.LeftShift], buttonColor: Color(#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)), buttonToggle: true)
+                    MakeButton(
+                        title: "Left Shift", 
+                        directInputServerCommand: [Scancode.LeftShift], 
+                        buttonColor: Color(#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)), 
+                        buttonToggle: true
+                    )
+                    MakeButton(
+                        title: "Vicreo switch app", 
+                        vicreoCommand: VicreoCommand(key: .tab, type: .press, modifiers: [.command]),
+                        buttonToggle: false
+                    )
                     MakePopover(
                         title: "Keys", 
                         buttons: [
                             MakeButton(
                                 title: "Switch Between Open Apps", 
-                                messageToSend: [Scancode.Alt, Scancode.Tab], 
+                                directInputServerCommand: [Scancode.Alt, Scancode.Tab], 
                                 buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "1", 
-                                messageToSend: [Scancode.Key1]
+                                directInputServerCommand: [Scancode.Key1]
                             ),
                             MakeButton(
                                 title: "A", 
-                                messageToSend: [Scancode.A]
+                                directInputServerCommand: [Scancode.A]
                             ),
                             MakeButton(
                                 title: "Volume Up", 
-                                messageToSend: [Scancode.VolumeUp], 
+                                directInputServerCommand: [Scancode.VolumeUp], 
                                 buttonColor: Color(#colorLiteral(red: 0.9686274509803922, green: 0.7803921568627451, blue: 0.34509803921568627, alpha: 1.0))
                             )
                         ],
@@ -130,13 +139,13 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Show Start Menu", 
-                                        messageToSend: [Scancode.LeftWindows], 
+                                        directInputServerCommand: [Scancode.LeftWindows], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)),
                                         buttonToggle: false
                                     ),
                                     MakeButton(
                                         title: "Show Task Switcher", 
-                                        messageToSend: [Scancode.LeftWindows, Scancode.Tab], 
+                                        directInputServerCommand: [Scancode.LeftWindows, Scancode.Tab], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     )
                                 ],
@@ -154,92 +163,173 @@ struct MakePopoverWithPopovers: View {
     @State private var showingPopover = false
     var title: String
     var popovers: [MakePopover]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
-                ScrollView {
-                    ForEach (self.popovers) { popover in
-                        popover
-                    }
+        Button(
+            action: {
+                self.showingPopover.toggle()
+            },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+            }
+        )
+        .font(.headline)
+        .padding()
+        .foregroundColor(.white)
+        .popover(isPresented: self.$showingPopover) {
+            ScrollView {
+                ForEach (self.popovers) { popover in
+                    popover
                 }
-            }.padding()
-        }.padding()
+            }
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+            )
+        )
+        .padding()
     }
 }
-
 
 struct MakePopover: View, Identifiable {
     var id: UUID? = UUID()
     @State private var showingPopover = false
     var title: String
     var buttons: [MakeButton]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
-                ScrollView {
-                    ForEach (self.buttons) { button in
-                        button
-                    }
+        Button(
+            action: {
+                self.showingPopover.toggle()
+            },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+            }
+        )
+        .font(.headline)
+        .padding()
+        .foregroundColor(.white)
+        .popover(isPresented: self.$showingPopover) {
+            ScrollView {
+                ForEach (self.buttons) { button in
+                    button
                 }
-            }.padding()
-        }.padding()
+            }
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+                )
+        )
+        .padding()
     }
 }
 
 struct MakeButton: View, Identifiable {
     var id: UUID? = UUID()
     var title: String
-    var messageToSend: [Scancode]? = []
-    var buttonColor: Color?
-    var buttonToggle: Bool?
+    var vicreoCommand: VicreoCommand?
+    var directInputServerCommand: [Scancode]? = []
+    var buttonColor: Color? = .blue
+    var buttonToggle: Bool? = false
     @State private var keyToggledOn: Bool = false
-    var buttonAction: String {
-        var serverString: String = ""
-        for scancode in messageToSend! {
-            serverString += scancode.rawValue + " "
+    // Using Vicreo Key Listener or Direct Input Server
+    var jsonCommand: Bool {
+        if vicreoCommand != nil {
+            return true
         }
-        return serverString
+        return false
     }
-    var scancodeString: String {
-        var scancodeString: String = ""
-        for scancode in messageToSend! {
-            scancodeString += String(describing: scancode) + " "
+    // String sent to server
+    var buttonAction: String {
+        if !jsonCommand ?? true {
+            var serverString: String = ""
+            for scancode in directInputServerCommand! {
+                serverString += scancode.rawValue + " "
+            }
+            return serverString
+        } else {
+            if let jsonToServer = vicreoCommand?.encodeToJSON() {
+                return jsonToServer
+            }
+            return "Error encoding JSON"
         }
-        return scancodeString
+    }
+    // Key command displayed under button
+    var scancodeString: String {
+        if !jsonCommand ?? true {
+            var scancodeString: String = ""
+            for scancode in directInputServerCommand! {
+                scancodeString += String(describing: scancode) + " "
+            }
+            return scancodeString
+        } else {
+            var vicreoKey: String = vicreoCommand?.key.rawValue ?? ""
+            var vicreoType: String = vicreoCommand?.type.rawValue ?? ""
+            var vicreoModifiers: String = vicreoCommand?.modifiersArrayToString ?? ""
+            return "\(vicreoType) \(vicreoKey) \(vicreoModifiers)"
+        }
     }
     
     var body: some View {
         VStack {
-            Button(title, action: {
-                var stringSentToServer: String = ""
-                if self.buttonToggle ?? false {
-                    if self.keyToggledOn {
-                        stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+            Button(
+                action: {
+                    var stringSentToServer: String = ""
+                    if self.buttonToggle ?? false {
+                        if self.keyToggledOn {
+                            // Vicreo Listener messages must be handled differently
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"down\"", with: "\"type\":\"up\"")
+                            } else { // Python server
+                                stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+                            }
+                        } else {
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"up\"", with: "\"type\":\"down\"")
+                            } else {
+                                stringSentToServer += "<TOGGLEON>" + self.buttonAction
+                            }
+                        }
+                        self.keyToggledOn.toggle()
                     } else {
-                        stringSentToServer = "<TOGGLEON>" + self.buttonAction
+                        stringSentToServer = self.buttonAction
                     }
-                    self.keyToggledOn.toggle()
-                } else {
-                    stringSentToServer = self.buttonAction
+                    // Send message to server
+                    tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
+            },
+                label: {
+                    Text(title).multilineTextAlignment(.center)
                 }
-                // Send message to server
-                tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
-            }).accentColor(buttonColor).font(.headline)
+            )
+            .font(.headline)
+            // Internal padding of button
+            .padding()
+            .foregroundColor(buttonColor!)
+            .overlay(
+                Capsule(style: .continuous)
+                    .stroke(buttonColor!, style: StrokeStyle(lineWidth: 5))
+            )
+            .shadow(color: buttonColor!.opacity(0.25) ,radius: 2)
+            // Padding between button and keyboard shortcut
+            .padding(.bottom, 5)
             // Display keys pressed
             Text(self.scancodeString).font(.caption).foregroundColor(.gray)
-        }.padding().opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
+        }
+        .padding(10)
+        .opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
     }
-    
 }
 
 // These keys can be used with DirectInputServer
@@ -422,6 +512,165 @@ enum Scancode: String {
     case Noname = "VK_NONAME" // Reserved
     case PA1 = "VK_PA1" // PA1 key
     case OEM_Clear = "VK_OEM_CLEAR" // Clear key
+}
+
+enum VicreoModifier: String, Codable {
+    case alt
+    case command
+    case control
+    case shift
+}
+
+enum VicreoKey: String, Codable {
+    case backspace
+    case delete
+    case enter
+    case tab
+    case escape
+    case up
+    case down
+    case right
+    case left
+    case home
+    case end
+    case pageup
+    case pagedown
+    case f1
+    case f2
+    case f3
+    case f4
+    case f5
+    case f6
+    case f7
+    case f8
+    case f9
+    case f10
+    case f11
+    case f12
+    case command
+    case alt
+    case control
+    case shift
+    case right_shift
+    case space
+    case printscreen
+    case insert
+    case audio_mute
+    case audio_vol_down
+    case audio_vol_up
+    case audio_play
+    case audio_stop
+    case audio_pause
+    case audio_prev
+    case audio_next
+    case audio_rewind
+    case audio_forward
+    case audio_repeat
+    case audio_random
+    case numpad_0
+    case numpad_1
+    case numpad_2
+    case numpad_3
+    case numpad_4
+    case numpad_5
+    case numpad_6
+    case numpad_7
+    case numpad_8
+    case numpad_9
+    case lights_mon_up
+    case lights_mon_down
+    case lights_kbd_toggle
+    case lights_kbd_up
+    case lights_kbd_down
+    case a
+    case b
+    case c
+    case d
+    case e
+    case f
+    case g
+    case h
+    case i
+    case j
+    case k
+    case l
+    case m
+    case n
+    case o
+    case p
+    case q
+    case r
+    case s
+    case t
+    case u
+    case v
+    case w
+    case x
+    case y
+    case z
+    case keyboard0 = "0"
+    case keyboard1 = "1"
+    case keyboard2 = "2"
+    case keyboard3 = "3"
+    case keyboard4 = "4"
+    case keyboard5 = "5"
+    case keyboard6 = "6"
+    case keyboard7 = "7"
+    case keyboard8 = "8"
+    case keyboard9 = "9"
+}
+
+enum VicreoType: String, Codable {
+    case press
+    case pressSpecial
+    case down
+    case up
+    case processOSX
+    case shell
+    case string
+    case file
+}
+
+enum JSONError: Error {
+    case encodingError
+    case decodingError
+}
+
+struct VicreoCommand: Codable {
+    let key: VicreoKey
+    let type: VicreoType
+    // To send a key without a modifier - modifiers must be an empty array []
+    // messageText: "{ \"key\":\"z\", \"type\":\"press\", \"modifiers\":[] }"
+    let modifiers: [VicreoModifier?]
+    var modifiersArrayToString: String {
+        var modifiersString = ""
+        for modifier in modifiers {
+            modifiersString += (modifier?.rawValue ?? "" ) + " "
+        }
+        return modifiersString
+    }
+    
+    func encodeToJSON() -> String {
+        do {
+            let encodedData = try! JSONEncoder().encode(self) 
+            let jsonString = String(data: encodedData,
+                                    encoding: .utf8)
+            return jsonString ?? "JSON error"
+        }
+        catch {
+            print("JSON error")
+        }
+    }
+}
+
+// Debugging statement
+let vicreoCommand = VicreoCommand(key: VicreoKey.tab, type: VicreoType.press, modifiers: [VicreoModifier.alt])
+
+// Debugging view
+struct JSONView: View {
+    var body: some View {
+        Text(vicreoCommand.encodeToJSON())
+    }
 }
 
 PlaygroundPage.current.setLiveView(MakePlaygroundView().border(Color.gray))
