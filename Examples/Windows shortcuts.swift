@@ -5,12 +5,12 @@ import Network
 
 // MARK: - Server Address
 
-/// Address of Python Server that simulates HID inputs
+/// Address of Server that simulates HID inputs
 let serverIPAddress = "192.168.68.126"
 
 // MARK: - Client Connection
 
-/// Creates a connection to Python Server and sends messages to the server.
+/// Creates a connection to Server and sends messages to the server.
 public class TCPClient {
     // Singleton pattern
     private static var sharedTCPClient: TCPClient?
@@ -93,34 +93,33 @@ let tcpClient = TCPClient.returnSingleton(serverIPAddress: serverIPAddress)
 struct MakePlaygroundView: View {
     // Type Color() to bring up a color picker
     var body: some View {
-        // Seems to be a bug where you can only have 9 buttons in one VStack/Group/Popover etc, create another and add buttons to that
         ScrollView([.horizontal, .vertical]) {
             HStack {
                 VStack {
                     MakePopover(
                         title: "System", 
                         buttons: [
-                            MakeButton(title: "Open Magnifier", messageToSend: [Scancode.LeftWindows, Scancode.KeyEquals]),
-                            MakeButton(title: "Open Action center", messageToSend: [Scancode.LeftWindows, Scancode.A]),
-                            MakeButton(title: "Set focus in the notification area", messageToSend: [Scancode.LeftWindows, Scancode.B]),
-                            MakeButton(title: "Open Cortana in listening mode", messageToSend: [Scancode.LeftWindows, Scancode.C]),
-                            MakeButton(title: "Display date and time", messageToSend: [Scancode.LeftWindows, Scancode.Alt, Scancode.D]),
-                            MakeButton(title: "Open File Explorer", messageToSend: [Scancode.LeftWindows, Scancode.E]),
-                            MakeButton(title: "Open Feedback Hub and take a screenshot", messageToSend: [Scancode.LeftWindows, Scancode.F]),
-                            MakeButton(title: "Open Game Bar", messageToSend: [Scancode.LeftWindows, Scancode.G]),
-                            MakeButton(title: "Start dictation", messageToSend: [Scancode.LeftWindows, Scancode.F]),
-                            MakeButton(title: "Open Settings", messageToSend: [Scancode.LeftWindows, Scancode.I]),
-                            MakeButton(title: "Choose a display mode", messageToSend: [Scancode.LeftWindows, Scancode.P]),
-                            MakeButton(title: "Open Quick Assist", messageToSend: [Scancode.LeftWindows, Scancode.CTRL, Scancode.Q]),
-                            MakeButton(title: "Open Run", messageToSend: [Scancode.LeftWindows, Scancode.R]),
-                            MakeButton(title: "Open Search", messageToSend: [Scancode.LeftWindows, Scancode.S]),
-                            MakeButton(title: "Take a screenshot", messageToSend: [Scancode.LeftWindows, Scancode.Shift, Scancode.S]),
-                            MakeButton(title: "Open Ease of Access Center", messageToSend: [Scancode.LeftWindows, Scancode.U]),
-                            MakeButton(title: "Cycle through notifications", messageToSend: [Scancode.LeftWindows, Scancode.Shift, Scancode.V]),
-                            MakeButton(title: "Open the Quick Link menu", messageToSend: [Scancode.LeftWindows, Scancode.X]),
-                            MakeButton(title: "Display the System Properties dialog box", messageToSend: [Scancode.LeftWindows, Scancode.Pause]),
-                            MakeButton(title: "Search for PCs (if you're on a network", messageToSend: [Scancode.LeftWindows, Scancode.CTRL, Scancode.F]),
-                            MakeButton(title: "Take a screenshot and copy it to the clipboard", messageToSend: [Scancode.PrintScreen])
+                            MakeButton(title: "Open Magnifier", directInputServerCommand: [Scancode.LeftWindows, Scancode.KeyEquals]),
+                            MakeButton(title: "Open Action center", directInputServerCommand: [Scancode.LeftWindows, Scancode.A]),
+                            MakeButton(title: "Set focus in the notification area", directInputServerCommand: [Scancode.LeftWindows, Scancode.B]),
+                            MakeButton(title: "Open Cortana in listening mode", directInputServerCommand: [Scancode.LeftWindows, Scancode.C]),
+                            MakeButton(title: "Display date and time", directInputServerCommand: [Scancode.LeftWindows, Scancode.Alt, Scancode.D]),
+                            MakeButton(title: "Open File Explorer", directInputServerCommand: [Scancode.LeftWindows, Scancode.E]),
+                            MakeButton(title: "Open Feedback Hub and take a screenshot", directInputServerCommand: [Scancode.LeftWindows, Scancode.F]),
+                            MakeButton(title: "Open Game Bar", directInputServerCommand: [Scancode.LeftWindows, Scancode.G]),
+                            MakeButton(title: "Start dictation", directInputServerCommand: [Scancode.LeftWindows, Scancode.F]),
+                            MakeButton(title: "Open Settings", directInputServerCommand: [Scancode.LeftWindows, Scancode.I]),
+                            MakeButton(title: "Choose a display mode", directInputServerCommand: [Scancode.LeftWindows, Scancode.P]),
+                            MakeButton(title: "Open Quick Assist", directInputServerCommand: [Scancode.LeftWindows, Scancode.CTRL, Scancode.Q]),
+                            MakeButton(title: "Open Run", directInputServerCommand: [Scancode.LeftWindows, Scancode.R]),
+                            MakeButton(title: "Open Search", directInputServerCommand: [Scancode.LeftWindows, Scancode.S]),
+                            MakeButton(title: "Take a screenshot", directInputServerCommand: [Scancode.LeftWindows, Scancode.Shift, Scancode.S]),
+                            MakeButton(title: "Open Ease of Access Center", directInputServerCommand: [Scancode.LeftWindows, Scancode.U]),
+                            MakeButton(title: "Cycle through notifications", directInputServerCommand: [Scancode.LeftWindows, Scancode.Shift, Scancode.V]),
+                            MakeButton(title: "Open the Quick Link menu", directInputServerCommand: [Scancode.LeftWindows, Scancode.X]),
+                            MakeButton(title: "Display the System Properties dialog box", directInputServerCommand: [Scancode.LeftWindows, Scancode.Pause]),
+                            MakeButton(title: "Search for PCs (if you're on a network", directInputServerCommand: [Scancode.LeftWindows, Scancode.CTRL, Scancode.F]),
+                            MakeButton(title: "Take a screenshot and copy it to the clipboard", directInputServerCommand: [Scancode.PrintScreen])
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                     )
@@ -128,18 +127,18 @@ struct MakePlaygroundView: View {
                         title: "File Explorer", 
                         buttons: [
                             // Assumes File Explorer in position 1 on taskbar
-                            MakeButton(title: "File Explorer Jump List", messageToSend: [Scancode.LeftWindows, Scancode.Alt, Scancode.Key1]),
-                            MakeButton(title: "File Explorer new instance", messageToSend: [Scancode.LeftWindows, Scancode.Shift, Scancode.Key1]),
-                            MakeButton(title: "Rename the selected item", messageToSend: [Scancode.F2]
+                            MakeButton(title: "File Explorer Jump List", directInputServerCommand: [Scancode.LeftWindows, Scancode.Alt, Scancode.Key1]),
+                            MakeButton(title: "File Explorer new instance", directInputServerCommand: [Scancode.LeftWindows, Scancode.Shift, Scancode.Key1]),
+                            MakeButton(title: "Rename the selected item", directInputServerCommand: [Scancode.F2]
                             ),
-                            MakeButton(title: "Search for a file or folder", messageToSend: [Scancode.F3]
+                            MakeButton(title: "Search for a file or folder", directInputServerCommand: [Scancode.F3]
                             ),
-                            MakeButton(title: "Display the address bar list", messageToSend: [Scancode.F4]
+                            MakeButton(title: "Display the address bar list", directInputServerCommand: [Scancode.F4]
                             ),
-                            MakeButton(title: "Refresh the active window", messageToSend: [Scancode.F5] ),
-                            MakeButton(title: "Dislay properties for the selected item", messageToSend: [Scancode.Alt, Scancode.ReturnOrEnter]
+                            MakeButton(title: "Refresh the active window", directInputServerCommand: [Scancode.F5] ),
+                            MakeButton(title: "Dislay properties for the selected item", directInputServerCommand: [Scancode.Alt, Scancode.ReturnOrEnter]
                             ),
-                            MakeButton(title: "Delete the selected item and move it to the Recycle Bin", messageToSend: [Scancode.CTRL, Scancode.D]
+                            MakeButton(title: "Delete the selected item and move it to the Recycle Bin", directInputServerCommand: [Scancode.CTRL, Scancode.D]
                             )
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
@@ -147,34 +146,34 @@ struct MakePlaygroundView: View {
                     MakePopover(
                         title: "Text Commands", 
                         buttons: [
-                            MakeButton(title: "Open emoji panel", messageToSend: [Scancode.LeftWindows, Scancode.KeyPeriod]),
-                            MakeButton(title: "Open the clipboard", messageToSend: [Scancode.LeftWindows, Scancode.V]),
-                            MakeButton(title: "Switch input language and keyboard layout", messageToSend: [Scancode.LeftWindows, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
-                            MakeButton(title: "Cut", messageToSend: [Scancode.CTRL, Scancode.X], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Copy", messageToSend: [Scancode.CTRL, Scancode.C], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Paste", messageToSend: [Scancode.CTRL, Scancode.C], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Undo", messageToSend: [Scancode.CTRL, Scancode.Z], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Redo an action", messageToSend: [Scancode.CTRL, Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Move the cursor to the beginning of the next word", messageToSend: [Scancode.CTRL, Scancode.Right], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Move the cursor to the beginning of the previous word", messageToSend: [Scancode.CTRL, Scancode.Left], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Move the cursor to the beginning of the next paragraph", messageToSend: [Scancode.CTRL, Scancode.Down], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
-                            MakeButton(title: "Move the cursor to the beginning of the previous paragraph", messageToSend: [Scancode.CTRL, Scancode.Up], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
+                            MakeButton(title: "Open emoji panel", directInputServerCommand: [Scancode.LeftWindows, Scancode.KeyPeriod]),
+                            MakeButton(title: "Open the clipboard", directInputServerCommand: [Scancode.LeftWindows, Scancode.V]),
+                            MakeButton(title: "Switch input language and keyboard layout", directInputServerCommand: [Scancode.LeftWindows, Scancode.Spacebar], buttonColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))),
+                            MakeButton(title: "Cut", directInputServerCommand: [Scancode.CTRL, Scancode.X], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Copy", directInputServerCommand: [Scancode.CTRL, Scancode.C], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Paste", directInputServerCommand: [Scancode.CTRL, Scancode.C], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Undo", directInputServerCommand: [Scancode.CTRL, Scancode.Z], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Redo an action", directInputServerCommand: [Scancode.CTRL, Scancode.Y], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Move the cursor to the beginning of the next word", directInputServerCommand: [Scancode.CTRL, Scancode.Right], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Move the cursor to the beginning of the previous word", directInputServerCommand: [Scancode.CTRL, Scancode.Left], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Move the cursor to the beginning of the next paragraph", directInputServerCommand: [Scancode.CTRL, Scancode.Down], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))),
+                            MakeButton(title: "Move the cursor to the beginning of the previous paragraph", directInputServerCommand: [Scancode.CTRL, Scancode.Up], buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0)))
                         ],
                         backgroundColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                     )
                     MakePopover(
                         title: "Window Controls", 
                         buttons: [
-                            MakeButton(title: "Temporarily peek at the desktop", messageToSend: [Scancode.LeftWindows, Scancode.KeyComma]),
-                            MakeButton(title: "Cycle through apps on the taskbar", messageToSend: [Scancode.LeftWindows, Scancode.T]),
-                            MakeButton(title: "Open Task Manager", messageToSend: [Scancode.CTRL, Scancode.Shift, Scancode.Escape]),
-                            MakeButton(title: "Display the shortcut menu for the selected item", messageToSend: [Scancode.Shift, Scancode.F10]),
-                            MakeButton(title: "Close the active document", messageToSend: [Scancode.CTRL, Scancode.F4]),
-                            MakeButton(title: "Close app", messageToSend: [Scancode.Alt, Scancode.F4]),
-                            MakeButton(title: "Cycle through screen elements", messageToSend: [Scancode.F6]),
-                            MakeButton(title: "Activate the Menu bar in the active app", messageToSend: [Scancode.F10]),
-                            MakeButton(title: "Cycle through items in the order in which they were opened", messageToSend: [Scancode.Alt, Scancode.Escape]),
-                            MakeButton(title: "Open the shortcut menu for the active windows", messageToSend: [Scancode.Alt, Scancode.Spacebar])
+                            MakeButton(title: "Temporarily peek at the desktop", directInputServerCommand: [Scancode.LeftWindows, Scancode.KeyComma]),
+                            MakeButton(title: "Cycle through apps on the taskbar", directInputServerCommand: [Scancode.LeftWindows, Scancode.T]),
+                            MakeButton(title: "Open Task Manager", directInputServerCommand: [Scancode.CTRL, Scancode.Shift, Scancode.Escape]),
+                            MakeButton(title: "Display the shortcut menu for the selected item", directInputServerCommand: [Scancode.Shift, Scancode.F10]),
+                            MakeButton(title: "Close the active document", directInputServerCommand: [Scancode.CTRL, Scancode.F4]),
+                            MakeButton(title: "Close app", directInputServerCommand: [Scancode.Alt, Scancode.F4]),
+                            MakeButton(title: "Cycle through screen elements", directInputServerCommand: [Scancode.F6]),
+                            MakeButton(title: "Activate the Menu bar in the active app", directInputServerCommand: [Scancode.F10]),
+                            MakeButton(title: "Cycle through items in the order in which they were opened", directInputServerCommand: [Scancode.Alt, Scancode.Escape]),
+                            MakeButton(title: "Open the shortcut menu for the active windows", directInputServerCommand: [Scancode.Alt, Scancode.Spacebar])
                         ], 
                         backgroundColor: Color(#colorLiteral(red: 0.9254901960784314, green: 0.23529411764705882, blue: 0.10196078431372549, alpha: 1.0))
                     )
@@ -188,92 +187,173 @@ struct MakePopoverWithPopovers: View {
     @State private var showingPopover = false
     var title: String
     var popovers: [MakePopover]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
-                ScrollView {
-                    ForEach (self.popovers) { popover in
-                        popover
-                    }
+        Button(
+            action: {
+                self.showingPopover.toggle()
+            },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+            }
+        )
+        .font(.headline)
+        .padding()
+        .foregroundColor(.white)
+        .popover(isPresented: self.$showingPopover) {
+            ScrollView {
+                ForEach (self.popovers) { popover in
+                    popover
                 }
-            }.padding()
-        }.padding()
+            }
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+            )
+        )
+        .padding()
     }
 }
-
 
 struct MakePopover: View, Identifiable {
     var id: UUID? = UUID()
     @State private var showingPopover = false
     var title: String
     var buttons: [MakeButton]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
-                ScrollView {
-                    ForEach (self.buttons) { button in
-                        button
-                    }
+        Button(
+            action: {
+                self.showingPopover.toggle()
+            },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+            }
+        )
+        .font(.headline)
+        .padding()
+        .foregroundColor(.white)
+        .popover(isPresented: self.$showingPopover) {
+            ScrollView {
+                ForEach (self.buttons) { button in
+                    button
                 }
-            }.padding()
-        }.padding()
+            }
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+                )
+        )
+        .padding()
     }
 }
 
 struct MakeButton: View, Identifiable {
     var id: UUID? = UUID()
     var title: String
-    var messageToSend: [Scancode]? = []
-    var buttonColor: Color?
-    var buttonToggle: Bool?
+    var vicreoListenerCommand: VicreoCommand?
+    var directInputServerCommand: [Scancode]? = []
+    var buttonColor: Color? = .blue
+    var buttonToggle: Bool? = false
     @State private var keyToggledOn: Bool = false
-    var buttonAction: String {
-        var serverString: String = ""
-        for scancode in messageToSend! {
-            serverString += scancode.rawValue + " "
+    // Using Vicreo Key Listener or Direct Input Server
+    var jsonCommand: Bool {
+        if vicreoListenerCommand != nil {
+            return true
         }
-        return serverString
+        return false
     }
-    var scancodeString: String {
-        var scancodeString: String = ""
-        for scancode in messageToSend! {
-            scancodeString += String(describing: scancode) + " "
+    // String sent to server
+    var buttonAction: String {
+        if !jsonCommand ?? true {
+            var serverString: String = ""
+            for scancode in directInputServerCommand! {
+                serverString += scancode.rawValue + " "
+            }
+            return serverString
+        } else {
+            if let jsonToServer = vicreoListenerCommand?.encodeToJSON() {
+                return jsonToServer
+            }
+            return "Error encoding JSON"
         }
-        return scancodeString
+    }
+    // Key command displayed under button
+    var scancodeString: String {
+        if !jsonCommand ?? true {
+            var scancodeString: String = ""
+            for scancode in directInputServerCommand! {
+                scancodeString += String(describing: scancode) + " "
+            }
+            return scancodeString
+        } else {
+            var vicreoKey: String = vicreoListenerCommand?.key.rawValue ?? ""
+            var vicreoType: String = vicreoListenerCommand?.type.rawValue ?? ""
+            var vicreoModifiers: String = vicreoListenerCommand?.modifiersArrayToString ?? ""
+            return "\(vicreoType) \(vicreoKey) \(vicreoModifiers)"
+        }
     }
     
     var body: some View {
         VStack {
-            Button(title, action: {
-                var stringSentToServer: String = ""
-                if self.buttonToggle ?? false {
-                    if self.keyToggledOn {
-                        stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+            Button(
+                action: {
+                    var stringSentToServer: String = ""
+                    if self.buttonToggle ?? false {
+                        if self.keyToggledOn {
+                            // Vicreo Listener messages must be handled differently
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"down\"", with: "\"type\":\"up\"")
+                            } else { // Python server
+                                stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+                            }
+                        } else {
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"up\"", with: "\"type\":\"down\"")
+                            } else {
+                                stringSentToServer += "<TOGGLEON>" + self.buttonAction
+                            }
+                        }
+                        self.keyToggledOn.toggle()
                     } else {
-                        stringSentToServer = "<TOGGLEON>" + self.buttonAction
+                        stringSentToServer = self.buttonAction
                     }
-                    self.keyToggledOn.toggle()
-                } else {
-                    stringSentToServer = self.buttonAction
+                    // Send message to server
+                    tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
+            },
+                label: {
+                    Text(title).multilineTextAlignment(.center)
                 }
-                // Send message to server
-                tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
-            }).accentColor(buttonColor).font(.headline)
+            )
+            .font(.headline)
+            // Internal padding of button
+            .padding()
+            .foregroundColor(buttonColor!)
+            .overlay(
+                Capsule(style: .continuous)
+                    .stroke(buttonColor!, style: StrokeStyle(lineWidth: 5))
+            )
+            .shadow(color: buttonColor!.opacity(0.25) ,radius: 2)
+            // Padding between button and keyboard shortcut
+            .padding(.bottom, 5)
             // Display keys pressed
             Text(self.scancodeString).font(.caption).foregroundColor(.gray)
-        }.padding().opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
+        }
+        .padding(10)
+        .opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
     }
-    
 }
 
 // These keys can be used with DirectInputServer
@@ -456,6 +536,165 @@ enum Scancode: String {
     case Noname = "VK_NONAME" // Reserved
     case PA1 = "VK_PA1" // PA1 key
     case OEM_Clear = "VK_OEM_CLEAR" // Clear key
+}
+
+enum VicreoModifier: String, Codable {
+    case alt
+    case command
+    case control
+    case shift
+}
+
+enum VicreoKey: String, Codable {
+    case backspace
+    case delete
+    case enter
+    case tab
+    case escape
+    case up
+    case down
+    case right
+    case left
+    case home
+    case end
+    case pageup
+    case pagedown
+    case f1
+    case f2
+    case f3
+    case f4
+    case f5
+    case f6
+    case f7
+    case f8
+    case f9
+    case f10
+    case f11
+    case f12
+    case command
+    case alt
+    case control
+    case shift
+    case right_shift
+    case space
+    case printscreen
+    case insert
+    case audio_mute
+    case audio_vol_down
+    case audio_vol_up
+    case audio_play
+    case audio_stop
+    case audio_pause
+    case audio_prev
+    case audio_next
+    case audio_rewind
+    case audio_forward
+    case audio_repeat
+    case audio_random
+    case numpad_0
+    case numpad_1
+    case numpad_2
+    case numpad_3
+    case numpad_4
+    case numpad_5
+    case numpad_6
+    case numpad_7
+    case numpad_8
+    case numpad_9
+    case lights_mon_up
+    case lights_mon_down
+    case lights_kbd_toggle
+    case lights_kbd_up
+    case lights_kbd_down
+    case a
+    case b
+    case c
+    case d
+    case e
+    case f
+    case g
+    case h
+    case i
+    case j
+    case k
+    case l
+    case m
+    case n
+    case o
+    case p
+    case q
+    case r
+    case s
+    case t
+    case u
+    case v
+    case w
+    case x
+    case y
+    case z
+    case keyboard0 = "0"
+    case keyboard1 = "1"
+    case keyboard2 = "2"
+    case keyboard3 = "3"
+    case keyboard4 = "4"
+    case keyboard5 = "5"
+    case keyboard6 = "6"
+    case keyboard7 = "7"
+    case keyboard8 = "8"
+    case keyboard9 = "9"
+}
+
+enum VicreoType: String, Codable {
+    case press
+    case pressSpecial
+    case down
+    case up
+    case processOSX
+    case shell
+    case string
+    case file
+}
+
+enum JSONError: Error {
+    case encodingError
+    case decodingError
+}
+
+struct VicreoCommand: Codable {
+    let key: VicreoKey
+    let type: VicreoType
+    // To send a key without a modifier - modifiers must be an empty array []
+    // messageText: "{ \"key\":\"z\", \"type\":\"press\", \"modifiers\":[] }"
+    let modifiers: [VicreoModifier?]
+    var modifiersArrayToString: String {
+        var modifiersString = ""
+        for modifier in modifiers {
+            modifiersString += (modifier?.rawValue ?? "" ) + " "
+        }
+        return modifiersString
+    }
+    
+    func encodeToJSON() -> String {
+        do {
+            let encodedData = try! JSONEncoder().encode(self) 
+            let jsonString = String(data: encodedData,
+                                    encoding: .utf8)
+            return jsonString ?? "JSON error"
+        }
+        catch {
+            print("JSON error")
+        }
+    }
+}
+
+// Debugging statement
+let vicreoCommand = VicreoCommand(key: VicreoKey.tab, type: VicreoType.press, modifiers: [VicreoModifier.alt])
+
+// Debugging view
+struct JSONView: View {
+    var body: some View {
+        Text(vicreoCommand.encodeToJSON())
+    }
 }
 
 PlaygroundPage.current.setLiveView(MakePlaygroundView().border(Color.gray))
