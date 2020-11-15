@@ -10,7 +10,7 @@ let serverIPAddress = "192.168.68.128"
 
 // MARK: - Client Connection
 
-/// Creates a connection to Python Server and sends messages to the server.
+/// Creates a connection to Server and sends messages to the server.
 public class TCPClient {
     // Singleton pattern
     private static var sharedTCPClient: TCPClient?

@@ -5,12 +5,12 @@ import Network
 
 // MARK: - Server Address
 
-/// Address of Python Server that simulates HID inputs
+/// Address of Server that simulates HID inputs
 let serverIPAddress = "192.168.68.126"
 
 // MARK: - Client Connection
 
-/// Creates a connection to Python Server and sends messages to the server.
+/// Creates a connection to Server and sends messages to the server.
 public class TCPClient {
     // Singleton pattern
     private static var sharedTCPClient: TCPClient?
@@ -93,71 +93,70 @@ let tcpClient = TCPClient.returnSingleton(serverIPAddress: serverIPAddress)
 struct MakePlaygroundView: View {
     // Type Color() to bring up a color picker
     var body: some View {
-        // Seems to be a bug where you can only have 9 buttons in one VStack/Group/Popover etc, create another and add buttons to that
         ScrollView([.horizontal, .vertical]) {
             HStack {
                 MakeButton(
                     title: "Left-Turn Indicator", 
-                    messageToSend: [Scancode.LeftSquareBracket], 
+                    directInputServerCommand: [Scancode.LeftSquareBracket], 
                     buttonColor: Color(#colorLiteral(red: 0.9372549019607843, green: 0.34901960784313724, blue: 0.19215686274509805, alpha: 1.0))
                 )
                 MakeButton(
                     title: "Right-Turn Indicator", 
-                    messageToSend: [Scancode.RightSquareBracket], 
+                    directInputServerCommand: [Scancode.RightSquareBracket], 
                     buttonColor: Color(#colorLiteral(red: 0.9372549019607843, green: 0.34901960784313724, blue: 0.19215686274509805, alpha: 1.0))
                 )
             }
             HStack {
                 MakeButton(
                     title: "Close Left Window", 
-                    messageToSend: [Scancode.D], 
+                    directInputServerCommand: [Scancode.D], 
                     buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)),
                     buttonToggle: true
                 )
                 MakeButton(
                     title: "Open Left Window", 
-                    messageToSend: [Scancode.A], 
+                    directInputServerCommand: [Scancode.A], 
                     buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)),
                     buttonToggle: true
                 )
                 MakeButton(
                     title: "Open Right Window", 
-                    messageToSend: [Scancode.W], 
+                    directInputServerCommand: [Scancode.W], 
                     buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)),
                     buttonToggle: true
                 )
                 MakeButton(
-                title: "Close Right Window", 
-                messageToSend: [Scancode.S], 
-                buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)),
-                buttonToggle: true
+                    title: "Close Right Window", 
+                    directInputServerCommand: [Scancode.S], 
+                    buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0)),
+                    buttonToggle: true
                 )
             }
             HStack {
                 VStack {
                     MakeButton(
                         title: "Start Stop Engine", 
-                        messageToSend: [Scancode.E], 
+                        directInputServerCommand: [Scancode.E], 
                         buttonColor: Color(#colorLiteral(red: 0.7450980392156863, green: 0.1568627450980392, blue: 0.07450980392156863, alpha: 1.0))
                     )
                     MakeButton(
                         title: "Trailer Attach / Detach", 
-                        messageToSend: [Scancode.T], 
+                        directInputServerCommand: [Scancode.T], 
                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                     )
                     MakeButton(
                         title: "Parking Brake", 
-                        messageToSend: [Scancode.Spacebar], 
+                        directInputServerCommand: [Scancode.Spacebar], 
                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                     )
                     MakeButton(
                         title: "Hazard Warning", 
-                        messageToSend: [Scancode.F], 
+                        directInputServerCommand: [Scancode.F], 
                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                     )
                     MakeButton(
                         title: "Horn", 
-                        messageToSend: [Scancode.H], 
+                        directInputServerCommand: [Scancode.H], 
                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                     )
                 }
@@ -167,17 +166,17 @@ struct MakePlaygroundView: View {
                         buttons: [
                             MakeButton(
                                 title: "Light Modes", 
-                                messageToSend: [Scancode.L], 
+                                directInputServerCommand: [Scancode.L], 
                                 buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "High Beam Headlights", 
-                                messageToSend: [Scancode.K], 
+                                directInputServerCommand: [Scancode.K], 
                                 buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Beacon", 
-                                messageToSend: [Scancode.O], 
+                                directInputServerCommand: [Scancode.O], 
                                 buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                             )
                         ], 
@@ -188,12 +187,12 @@ struct MakePlaygroundView: View {
                         buttons: [
                             MakeButton(
                                 title: "Wipers", 
-                                messageToSend: [Scancode.P], 
+                                directInputServerCommand: [Scancode.P], 
                                 buttonColor: Color(#colorLiteral(red: 0.17647058823529413, green: 0.4980392156862745, blue: 0.7568627450980392, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Wipers Back", 
-                                messageToSend: [], 
+                                directInputServerCommand: [], 
                                 buttonColor: Color(#colorLiteral(red: 0.23921568627450981, green: 0.6745098039215687, blue: 0.9686274509803922, alpha: 1.0))
                             )
                         ], 
@@ -204,22 +203,22 @@ struct MakePlaygroundView: View {
                         buttons: [
                             MakeButton(
                                 title: "Cruise Control", 
-                                messageToSend: [Scancode.C], 
+                                directInputServerCommand: [Scancode.C], 
                                 buttonColor: Color(#colorLiteral(red: 0.9372549019607843, green: 0.34901960784313724, blue: 0.19215686274509805, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Cruise Control Increase", 
-                                messageToSend: [], 
+                                directInputServerCommand: [], 
                                 buttonColor: Color(#colorLiteral(red: 0.9372549019607843, green: 0.34901960784313724, blue: 0.19215686274509805, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Cruise Control Decrease", 
-                                messageToSend: [], 
+                                directInputServerCommand: [], 
                                 buttonColor: Color(#colorLiteral(red: 0.9372549019607843, green: 0.34901960784313724, blue: 0.19215686274509805, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Cruise Control Resume", 
-                                messageToSend: [], 
+                                directInputServerCommand: [], 
                                 buttonColor: Color(#colorLiteral(red: 0.9372549019607843, green: 0.34901960784313724, blue: 0.19215686274509805, alpha: 1.0))
                             )
                         ], 
@@ -233,22 +232,22 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Start/Stop Engine Electricity", 
-                                        messageToSend: [Scancode.KeyAccentGrave], 
+                                        directInputServerCommand: [Scancode.KeyAccentGrave], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Light Modes", 
-                                        messageToSend: [Scancode.L], 
+                                        directInputServerCommand: [Scancode.L], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "High Beam Headlights", 
-                                        messageToSend: [Scancode.K], 
+                                        directInputServerCommand: [Scancode.K], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Beacon", 
-                                        messageToSend: [Scancode.O], 
+                                        directInputServerCommand: [Scancode.O], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     )
                                 ], 
@@ -259,32 +258,32 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Shift Up", 
-                                        messageToSend: [Scancode.Shift], 
+                                        directInputServerCommand: [Scancode.Shift], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Shift Down", 
-                                        messageToSend: [Scancode.CTRL], 
+                                        directInputServerCommand: [Scancode.CTRL], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Shift To Neutral", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Shift Up Hint", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Shift Down Hint", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Gearbox Switch Automatic/Sequential", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     )
                                 ],
@@ -295,32 +294,32 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Parking Brake", 
-                                        messageToSend: [Scancode.Spacebar], 
+                                        directInputServerCommand: [Scancode.Spacebar], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Engine Brake", 
-                                        messageToSend: [Scancode.B], 
+                                        directInputServerCommand: [Scancode.B], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Engine Brake Toggle", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Engine Brake Increase", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Engine Brake Decrease", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Trailer Brake", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     )
                                 ], 
@@ -331,12 +330,12 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Lift/Drop Axle", 
-                                        messageToSend: [Scancode.U], 
+                                        directInputServerCommand: [Scancode.U], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Lift/Drop Trailer Axle", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     )
                                 ], 
@@ -347,17 +346,17 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Retarder Increase", 
-                                        messageToSend: [Scancode.Semicolon], 
+                                        directInputServerCommand: [Scancode.Semicolon], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Retarder Decrease", 
-                                        messageToSend: [Scancode.KeyPeriod], 
+                                        directInputServerCommand: [Scancode.KeyPeriod], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Differential Lock", 
-                                        messageToSend: [Scancode.V], 
+                                        directInputServerCommand: [Scancode.V], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     )
                                 ],
@@ -368,17 +367,17 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Horn", 
-                                        messageToSend: [Scancode.H], 
+                                        directInputServerCommand: [Scancode.H], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Air Horn", 
-                                        messageToSend: [Scancode.N], 
+                                        directInputServerCommand: [Scancode.N], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Light Horn", 
-                                        messageToSend: [Scancode.J], 
+                                        directInputServerCommand: [Scancode.J], 
                                         buttonColor: Color(#colorLiteral(red: 0.807843137254902, green: 0.027450980392156862, blue: 0.3333333333333333, alpha: 1.0))
                                     )
                                 ],
@@ -396,17 +395,17 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Show/Hide On-Screen Side Mirrors", 
-                                        messageToSend: [Scancode.F2], 
+                                        directInputServerCommand: [Scancode.F2], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Truck Adjustment", 
-                                        messageToSend: [Scancode.F4], 
+                                        directInputServerCommand: [Scancode.F4], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Screenshot", 
-                                        messageToSend: [Scancode.F10], 
+                                        directInputServerCommand: [Scancode.F10], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     )
                                 ],
@@ -417,17 +416,17 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Dashboard Display Mode", 
-                                        messageToSend: [Scancode.I], 
+                                        directInputServerCommand: [Scancode.I], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Dashboard Map Mode", 
-                                        messageToSend: [Scancode.Z], 
+                                        directInputServerCommand: [Scancode.Z], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Dashboard Trip Info Reset", 
-                                        messageToSend: [Scancode.X], 
+                                        directInputServerCommand: [Scancode.X], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     )
                                 ], 
@@ -438,47 +437,47 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Route Advisor Modes", 
-                                        messageToSend: [Scancode.F3], 
+                                        directInputServerCommand: [Scancode.F3], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Mouse Control", 
-                                        messageToSend: [Scancode.F1], 
+                                        directInputServerCommand: [Scancode.F1], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Navigation Page", 
-                                        messageToSend: [Scancode.F5], 
+                                        directInputServerCommand: [Scancode.F5], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Job Info Page", 
-                                        messageToSend: [Scancode.F6], 
+                                        directInputServerCommand: [Scancode.F6], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Diagnostics Page", 
-                                        messageToSend: [Scancode.F6], 
+                                        directInputServerCommand: [Scancode.F6], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Info Page", 
-                                        messageToSend: [Scancode.F8], 
+                                        directInputServerCommand: [Scancode.F8], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Next Page", 
-                                        messageToSend: [Scancode.Num0], 
+                                        directInputServerCommand: [Scancode.Num0], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Previous Page", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Route Advisor Destination Page", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     )
                                 ], 
@@ -489,27 +488,27 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Assistant action 1", 
-                                        messageToSend: [Scancode.Key1], 
+                                        directInputServerCommand: [Scancode.Key1], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Assistant action 2", 
-                                        messageToSend: [Scancode.Key2], 
+                                        directInputServerCommand: [Scancode.Key2], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Assistant action 3", 
-                                        messageToSend: [Scancode.Key3], 
+                                        directInputServerCommand: [Scancode.Key3], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Assistant action 4", 
-                                        messageToSend: [Scancode.Key4], 
+                                        directInputServerCommand: [Scancode.Key4], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Assistant action 5", 
-                                        messageToSend: [Scancode.Key5], 
+                                        directInputServerCommand: [Scancode.Key5], 
                                         buttonColor: Color(#colorLiteral(red: 0.9529411764705882, green: 0.6862745098039216, blue: 0.13333333333333333, alpha: 1.0))
                                     )
                                 ], 
@@ -526,32 +525,32 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Reset Head Tracking", 
-                                        messageToSend: [Scancode.F12], 
+                                        directInputServerCommand: [Scancode.F12], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Enable Head Tracking", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Look Left", 
-                                        messageToSend: [Scancode.NumDivide], 
+                                        directInputServerCommand: [Scancode.NumDivide], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Look Right", 
-                                        messageToSend: [Scancode.NumMultiply], 
+                                        directInputServerCommand: [Scancode.NumMultiply], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Steering Based Camera Rotation", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Blinker Based Camera Rotation", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     )
                                 ],
@@ -562,47 +561,47 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Interior Camera", 
-                                        messageToSend: [Scancode.Key1], 
+                                        directInputServerCommand: [Scancode.Key1], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Chasing Camera", 
-                                        messageToSend: [Scancode.Key2], 
+                                        directInputServerCommand: [Scancode.Key2], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Top-Down Camera", 
-                                        messageToSend: [Scancode.Key3], 
+                                        directInputServerCommand: [Scancode.Key3], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Roof Camera", 
-                                        messageToSend: [Scancode.Key4], 
+                                        directInputServerCommand: [Scancode.Key4], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Lean Out Camera", 
-                                        messageToSend: [Scancode.Key5], 
+                                        directInputServerCommand: [Scancode.Key5], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Bumper Camera", 
-                                        messageToSend: [Scancode.Key6], 
+                                        directInputServerCommand: [Scancode.Key6], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "On-Wheel Camera", 
-                                        messageToSend: [Scancode.Key7], 
+                                        directInputServerCommand: [Scancode.Key7], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Drive-By Camera", 
-                                        messageToSend: [Scancode.Key8], 
+                                        directInputServerCommand: [Scancode.Key8], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Next Camera", 
-                                        messageToSend: [Scancode.Key9], 
+                                        directInputServerCommand: [Scancode.Key9], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     )
                                 ], 
@@ -613,37 +612,37 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Zoom Interior Camera", 
-                                        messageToSend: [Scancode.Q], 
+                                        directInputServerCommand: [Scancode.Q], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Interior Look Forward", 
-                                        messageToSend: [Scancode.Num5], 
+                                        directInputServerCommand: [Scancode.Num5], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Interior Look Up Right", 
-                                        messageToSend: [Scancode.Num9], 
+                                        directInputServerCommand: [Scancode.Num9], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Interior Look Up Left", 
-                                        messageToSend: [Scancode.Num7], 
+                                        directInputServerCommand: [Scancode.Num7], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Interior Look Up Middle", 
-                                        messageToSend: [Scancode.Num8], 
+                                        directInputServerCommand: [Scancode.Num8], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Interior Look Right", 
-                                        messageToSend: [Scancode.Num6], 
+                                        directInputServerCommand: [Scancode.Num6], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Interior Look Left", 
-                                        messageToSend: [Scancode.Num4], 
+                                        directInputServerCommand: [Scancode.Num4], 
                                         buttonColor: Color(#colorLiteral(red: 0.4745098039215686, green: 0.8392156862745098, blue: 0.9764705882352941, alpha: 1.0))
                                     )
                                 ], 
@@ -654,22 +653,22 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Pause Extended View", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Apply Extended View Preset 1", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Apply Extended View Preset 2", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Apply Extended View Preset 3", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     )
                                 ], 
@@ -686,12 +685,12 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Activate", 
-                                        messageToSend: [Scancode.ReturnOrEnter], 
+                                        directInputServerCommand: [Scancode.ReturnOrEnter], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Menu", 
-                                        messageToSend: [Scancode.Escape], 
+                                        directInputServerCommand: [Scancode.Escape], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     )
                                 ],
@@ -702,12 +701,12 @@ struct MakePlaygroundView: View {
                                 buttons: [
                                     MakeButton(
                                         title: "Quick Save", 
-                                        messageToSend: [Scancode.ScrollLock], 
+                                        directInputServerCommand: [Scancode.ScrollLock], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     ),
                                     MakeButton(
                                         title: "Quick Load", 
-                                        messageToSend: [], 
+                                        directInputServerCommand: [], 
                                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                                     )
                                 ], 
@@ -721,37 +720,37 @@ struct MakePlaygroundView: View {
                         buttons: [
                             MakeButton(
                                 title: "Play Pause", 
-                                messageToSend: [Scancode.Spacebar], 
+                                directInputServerCommand: [Scancode.Spacebar], 
                                 buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Next Station", 
-                                messageToSend: [Scancode.PageDown], 
+                                directInputServerCommand: [Scancode.PageDown], 
                                 buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Previous Station", 
-                                messageToSend: [Scancode.PageUp], 
+                                directInputServerCommand: [Scancode.PageUp], 
                                 buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Make Favorite", 
-                                messageToSend: [Scancode.KeyPeriod], 
+                                directInputServerCommand: [Scancode.KeyPeriod], 
                                 buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Switch to Favorite", 
-                                messageToSend: [Scancode.KeyForwardSlash], 
+                                directInputServerCommand: [Scancode.KeyForwardSlash], 
                                 buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Audio Player Volume Up", 
-                                messageToSend: [Scancode.KeyEquals], 
+                                directInputServerCommand: [Scancode.KeyEquals], 
                                 buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Audio Player Volume Down", 
-                                messageToSend: [Scancode.KeyMinus], 
+                                directInputServerCommand: [Scancode.KeyMinus], 
                                 buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                             )
                         ], 
@@ -761,47 +760,47 @@ struct MakePlaygroundView: View {
                 VStack {
                     MakeButton(
                         title: "🗺 World Map", 
-                        messageToSend: [Scancode.M], 
+                        directInputServerCommand: [Scancode.M], 
                         buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                     )
                     MakeButton(
-                    title: "🚛 Garage Manager", 
-                    messageToSend: [Scancode.G], 
-                    buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
+                        title: "🚛 Garage Manager", 
+                        directInputServerCommand: [Scancode.G], 
+                        buttonColor: Color(#colorLiteral(red: 0.4666666666666667, green: 0.7647058823529411, blue: 0.26666666666666666, alpha: 1.0))
                     )
                     MakePopover(
                         title: "Walk Mode", 
                         buttons: [
                             MakeButton(
                                 title: "Crouch", 
-                                messageToSend: [Scancode.CTRL], 
+                                directInputServerCommand: [Scancode.CTRL], 
                                 buttonColor: Color(#colorLiteral(red: 0.2196078431372549, green: 0.00784313725490196, blue: 0.8549019607843137, alpha: 1.0)),
                                 buttonToggle: true
                             ),
                             MakeButton(
                                 title: "Run", 
-                                messageToSend: [Scancode.Shift], 
+                                directInputServerCommand: [Scancode.Shift], 
                                 buttonColor: Color(#colorLiteral(red: 0.2196078431372549, green: 0.00784313725490196, blue: 0.8549019607843137, alpha: 1.0)),
                                 buttonToggle: true
                             ),
                             MakeButton(
                                 title: "Forward", 
-                                messageToSend: [Scancode.W], 
+                                directInputServerCommand: [Scancode.W], 
                                 buttonColor: Color(#colorLiteral(red: 0.2196078431372549, green: 0.00784313725490196, blue: 0.8549019607843137, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Back", 
-                                messageToSend: [Scancode.S], 
+                                directInputServerCommand: [Scancode.S], 
                                 buttonColor: Color(#colorLiteral(red: 0.2196078431372549, green: 0.00784313725490196, blue: 0.8549019607843137, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Left", 
-                                messageToSend: [Scancode.A], 
+                                directInputServerCommand: [Scancode.A], 
                                 buttonColor: Color(#colorLiteral(red: 0.2196078431372549, green: 0.00784313725490196, blue: 0.8549019607843137, alpha: 1.0))
                             ),
                             MakeButton(
                                 title: "Right", 
-                                messageToSend: [Scancode.D], 
+                                directInputServerCommand: [Scancode.D], 
                                 buttonColor: Color(#colorLiteral(red: 0.2196078431372549, green: 0.00784313725490196, blue: 0.8549019607843137, alpha: 1.0))
                             )
                         ],
@@ -817,21 +816,37 @@ struct MakePopoverWithPopovers: View {
     @State private var showingPopover = false
     var title: String
     var popovers: [MakePopover]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
+        Button(
+            action: {
+                self.showingPopover.toggle()
+        },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+        }
+        )
+            .font(.headline)
+            .padding()
+            .foregroundColor(.white)
+            .popover(isPresented: self.$showingPopover) {
                 ScrollView {
                     ForEach (self.popovers) { popover in
                         popover
                     }
                 }
-            }.padding()
-        }.padding()
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+            )
+        )
+            .padding()
     }
 }
 
@@ -841,68 +856,134 @@ struct MakePopover: View, Identifiable {
     @State private var showingPopover = false
     var title: String
     var buttons: [MakeButton]
-    var font: Font? = .headline
     var backgroundColor: Color? = .blue
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).fill(backgroundColor!).shadow(radius: 5)
-            Button(title) {
-                self.showingPopover = true
-            }.font(font).foregroundColor(.white).popover(isPresented: self.$showingPopover) {
+        Button(
+            action: {
+                self.showingPopover.toggle()
+        },
+            label: {
+                Text(title).multilineTextAlignment(.center)
+        }
+        )
+            .font(.headline)
+            .padding()
+            .foregroundColor(.white)
+            .popover(isPresented: self.$showingPopover) {
                 ScrollView {
                     ForEach (self.buttons) { button in
                         button
                     }
                 }
-            }.padding()
-        }.padding()
+        }
+        .background(
+            RoundedRectangle(
+                cornerRadius: 10
+            )
+                .fill(backgroundColor!)
+                .shadow(
+                    color: Color(#colorLiteral(red: 0.803921568627451, green: 0.803921568627451, blue: 0.803921568627451, alpha: 1.0)).opacity(1.0), 
+                    radius: 5
+            )
+        )
+            .padding()
     }
 }
 
 struct MakeButton: View, Identifiable {
     var id: UUID? = UUID()
     var title: String
-    var messageToSend: [Scancode]? = []
-    var buttonColor: Color?
-    var buttonToggle: Bool?
+    var vicreoListenerCommand: VicreoCommand?
+    var directInputServerCommand: [Scancode]? = []
+    var buttonColor: Color? = .blue
+    var buttonToggle: Bool? = false
     @State private var keyToggledOn: Bool = false
-    var buttonAction: String {
-        var serverString: String = ""
-        for scancode in messageToSend! {
-            serverString += scancode.rawValue + " "
+    // Using Vicreo Key Listener or Direct Input Server
+    var jsonCommand: Bool {
+        if vicreoListenerCommand != nil {
+            return true
         }
-        return serverString
+        return false
     }
-    var scancodeString: String {
-        var scancodeString: String = ""
-        for scancode in messageToSend! {
-            scancodeString += String(describing: scancode) + " "
+    // String sent to server
+    var buttonAction: String {
+        if !jsonCommand ?? true {
+            var serverString: String = ""
+            for scancode in directInputServerCommand! {
+                serverString += scancode.rawValue + " "
+            }
+            return serverString
+        } else {
+            if let jsonToServer = vicreoListenerCommand?.encodeToJSON() {
+                return jsonToServer
+            }
+            return "Error encoding JSON"
         }
-        return scancodeString
+    }
+    // Key command displayed under button
+    var scancodeString: String {
+        if !jsonCommand ?? true {
+            var scancodeString: String = ""
+            for scancode in directInputServerCommand! {
+                scancodeString += String(describing: scancode) + " "
+            }
+            return scancodeString
+        } else {
+            var vicreoKey: String = vicreoListenerCommand?.key.rawValue ?? ""
+            var vicreoType: String = vicreoListenerCommand?.type.rawValue ?? ""
+            var vicreoModifiers: String = vicreoListenerCommand?.modifiersArrayToString ?? ""
+            return "\(vicreoType) \(vicreoKey) \(vicreoModifiers)"
+        }
     }
     
     var body: some View {
         VStack {
-            Button(title, action: {
-                var stringSentToServer: String = ""
-                if self.buttonToggle ?? false {
-                    if self.keyToggledOn {
-                        stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+            Button(
+                action: {
+                    var stringSentToServer: String = ""
+                    if self.buttonToggle ?? false {
+                        if self.keyToggledOn {
+                            // Vicreo Listener messages must be handled differently
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"down\"", with: "\"type\":\"up\"")
+                            } else { // Python server
+                                stringSentToServer = "<TOGGLEOFF>" + self.buttonAction
+                            }
+                        } else {
+                            if self.buttonAction.hasPrefix("{\"key\"") {
+                                stringSentToServer = self.buttonAction.replacingOccurrences(of: "\"type\":\"up\"", with: "\"type\":\"down\"")
+                            } else {
+                                stringSentToServer += "<TOGGLEON>" + self.buttonAction
+                            }
+                        }
+                        self.keyToggledOn.toggle()
                     } else {
-                        stringSentToServer = "<TOGGLEON>" + self.buttonAction
+                        stringSentToServer = self.buttonAction
                     }
-                    self.keyToggledOn.toggle()
-                } else {
-                    stringSentToServer = self.buttonAction
-                }
-                // Send message to server
-                tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
-            }).accentColor(buttonColor).font(.headline)
+                    // Send message to server
+                    tcpClient.sendMessage(text: stringSentToServer, isComplete: false, on: tcpClient.connection)
+            },
+                label: {
+                    Text(title).multilineTextAlignment(.center)
+            }
+            )
+                .font(.headline)
+                // Internal padding of button
+                .padding()
+                .foregroundColor(buttonColor!)
+                .overlay(
+                    Capsule(style: .continuous)
+                        .stroke(buttonColor!, style: StrokeStyle(lineWidth: 5))
+            )
+                .shadow(color: buttonColor!.opacity(0.25) ,radius: 2)
+                // Padding between button and keyboard shortcut
+                .padding(.bottom, 5)
             // Display keys pressed
             Text(self.scancodeString).font(.caption).foregroundColor(.gray)
-        }.padding().opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
+        }
+        .padding(10)
+        .opacity(buttonToggle ?? false ? keyToggledOn ? 1.0 : 0.5 : 1.0)
     }
-    
 }
 
 // These keys can be used with DirectInputServer
@@ -1085,6 +1166,165 @@ enum Scancode: String {
     case Noname = "VK_NONAME" // Reserved
     case PA1 = "VK_PA1" // PA1 key
     case OEM_Clear = "VK_OEM_CLEAR" // Clear key
+}
+
+enum VicreoModifier: String, Codable {
+    case alt
+    case command
+    case control
+    case shift
+}
+
+enum VicreoKey: String, Codable {
+    case backspace
+    case delete
+    case enter
+    case tab
+    case escape
+    case up
+    case down
+    case right
+    case left
+    case home
+    case end
+    case pageup
+    case pagedown
+    case f1
+    case f2
+    case f3
+    case f4
+    case f5
+    case f6
+    case f7
+    case f8
+    case f9
+    case f10
+    case f11
+    case f12
+    case command
+    case alt
+    case control
+    case shift
+    case right_shift
+    case space
+    case printscreen
+    case insert
+    case audio_mute
+    case audio_vol_down
+    case audio_vol_up
+    case audio_play
+    case audio_stop
+    case audio_pause
+    case audio_prev
+    case audio_next
+    case audio_rewind
+    case audio_forward
+    case audio_repeat
+    case audio_random
+    case numpad_0
+    case numpad_1
+    case numpad_2
+    case numpad_3
+    case numpad_4
+    case numpad_5
+    case numpad_6
+    case numpad_7
+    case numpad_8
+    case numpad_9
+    case lights_mon_up
+    case lights_mon_down
+    case lights_kbd_toggle
+    case lights_kbd_up
+    case lights_kbd_down
+    case a
+    case b
+    case c
+    case d
+    case e
+    case f
+    case g
+    case h
+    case i
+    case j
+    case k
+    case l
+    case m
+    case n
+    case o
+    case p
+    case q
+    case r
+    case s
+    case t
+    case u
+    case v
+    case w
+    case x
+    case y
+    case z
+    case keyboard0 = "0"
+    case keyboard1 = "1"
+    case keyboard2 = "2"
+    case keyboard3 = "3"
+    case keyboard4 = "4"
+    case keyboard5 = "5"
+    case keyboard6 = "6"
+    case keyboard7 = "7"
+    case keyboard8 = "8"
+    case keyboard9 = "9"
+}
+
+enum VicreoType: String, Codable {
+    case press
+    case pressSpecial
+    case down
+    case up
+    case processOSX
+    case shell
+    case string
+    case file
+}
+
+enum JSONError: Error {
+    case encodingError
+    case decodingError
+}
+
+struct VicreoCommand: Codable {
+    let key: VicreoKey
+    let type: VicreoType
+    // To send a key without a modifier - modifiers must be an empty array []
+    // messageText: "{ \"key\":\"z\", \"type\":\"press\", \"modifiers\":[] }"
+    let modifiers: [VicreoModifier?]
+    var modifiersArrayToString: String {
+        var modifiersString = ""
+        for modifier in modifiers {
+            modifiersString += (modifier?.rawValue ?? "" ) + " "
+        }
+        return modifiersString
+    }
+    
+    func encodeToJSON() -> String {
+        do {
+            let encodedData = try! JSONEncoder().encode(self) 
+            let jsonString = String(data: encodedData,
+                                    encoding: .utf8)
+            return jsonString ?? "JSON error"
+        }
+        catch {
+            print("JSON error")
+        }
+    }
+}
+
+// Debugging statement
+let vicreoCommand = VicreoCommand(key: VicreoKey.tab, type: VicreoType.press, modifiers: [VicreoModifier.alt])
+
+// Debugging view
+struct JSONView: View {
+    var body: some View {
+        Text(vicreoCommand.encodeToJSON())
+    }
 }
 
 PlaygroundPage.current.setLiveView(MakePlaygroundView().border(Color.gray))
